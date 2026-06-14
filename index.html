@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ar" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Explore Egypt's Hidden Places</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --sand:#f7f2ea;
+  --sand-dk:#ede6d5;
+  --ink:#0c1810;
+  --ink2:#1a2e1e;
+  --ink-lt:#2a4232;
+  --teal:#0a6655;
+  --teal-mid:#0d7a66;
+  --teal-lt:#e2f0ec;
+  --teal-glow:rgba(10,102,85,.15);
+  --gold:#b87820;
+  --gold-lt:#fdf3e2;
+  --muted:#556655;
+  --muted-lt:#8fa08f;
+  --white:#ffffff;
+  --border:rgba(12,24,16,.09);
+  --border-md:rgba(12,24,16,.16);
+  --r-sm:6px;
+  --r-md:12px;
+  --r-lg:20px;
+  --r-xl:28px;
+  --ease-out:cubic-bezier(.2,.8,.2,1);
+  --ease-spring:cubic-bezier(.34,1.4,.64,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--white);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--teal-lt);border-radius:10px}
+
+.custom-cursor{position:fixed;width:14px;height:14px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;mix-blend-mode:multiply;transform:translate(-50%,-50%);transition:width .2s var(--ease-out),height .2s var(--ease-out),opacity .2s}
+.custom-cursor-ring{position:fixed;width:38px;height:38px;border:1.5px solid var(--teal);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s var(--ease-out),height .25s var(--ease-out),opacity .3s;opacity:.4}
+.cursor-grow .custom-cursor{width:8px;height:8px;opacity:.4}
+.cursor-grow .custom-cursor-ring{width:52px;height:52px;opacity:.2}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:68px;transition:background .4s,box-shadow .4s}
+nav.solid{background:rgba(255,255,255,.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 1px 0 var(--border)}
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+.logo-mark{width:36px;height:36px;background:var(--teal);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.logo-text{font-family:'Cormorant Garamond',serif;font-size:14px;line-height:1.25;color:var(--ink);font-weight:600}
+.logo-text span{color:var(--teal)}
+nav.hero-nav .logo-text{color:#fff}
+nav.hero-nav .logo-text span{color:#7ee8d8}
+.nav-links{display:flex;gap:32px;list-style:none;align-items:center}
+.nav-links a{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s;position:relative;padding-bottom:2px;letter-spacing:.02em}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--teal);transition:width .3s var(--ease-out)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a:hover,.nav-links a.active{color:var(--ink)}
+nav.hero-nav .nav-links a{color:rgba(255,255,255,.6)}
+nav.hero-nav .nav-links a:hover{color:#fff}
+.btn-nav{background:var(--teal);color:#fff;border:none;border-radius:var(--r-sm);padding:8px 20px;font-size:12.5px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:.04em;transition:background .2s,transform .15s;box-shadow:0 3px 12px var(--teal-glow)}
+.btn-nav:hover{background:var(--ink-lt);transform:translateY(-1px)}
+
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=2000&q=90') center/cover no-repeat;transform:scale(1.04);animation:heroZoom 16s ease-out forwards}
+@keyframes heroZoom{to{transform:scale(1)}}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(115deg,rgba(6,14,10,.92) 0%,rgba(6,14,10,.62) 55%,rgba(6,14,10,.18) 100%)}
+.hero-content{position:relative;z-index:2;padding:0 56px;max-width:660px;animation:heroFadeUp .9s .3s var(--ease-out) both}
+@keyframes heroFadeUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:translateY(0)}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid rgba(255,255,255,.14);border-radius:40px;padding:6px 16px;font-size:10.5px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;margin-bottom:26px;color:rgba(255,255,255,.7);backdrop-filter:blur(10px)}
+.pulse-dot{width:6px;height:6px;background:#4ade80;border-radius:50%;flex-shrink:0;animation:pulseDot 2s infinite}
+@keyframes pulseDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,6.5vw,84px);line-height:1.0;font-weight:400;color:#fff;letter-spacing:-.02em;margin-bottom:22px}
+.hero h1 em{font-style:italic;color:#7ee8d8;font-weight:300}
+.hero h1 strong{font-weight:600}
+.hero-sub{font-size:16px;line-height:1.8;color:rgba(255,255,255,.58);margin-bottom:38px;max-width:460px;font-weight:300}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-hero-p{display:inline-flex;align-items:center;gap:9px;background:var(--teal);color:#fff;border:none;border-radius:var(--r-md);padding:14px 30px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s,transform .2s var(--ease-spring),box-shadow .2s;box-shadow:0 5px 20px var(--teal-glow)}
+.btn-hero-p:hover{background:var(--teal-mid);transform:translateY(-2px) scale(1.01);box-shadow:0 10px 28px var(--teal-glow)}
+.btn-hero-g{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.05);color:#fff;border:1.5px solid rgba(255,255,255,.22);border-radius:var(--r-md);padding:14px 30px;font-size:14px;font-weight:500;cursor:pointer;font-family:inherit;backdrop-filter:blur(10px);transition:background .2s,border-color .2s,transform .2s var(--ease-spring)}
+.btn-hero-g:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.45);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:0;margin-top:60px;border-top:1px solid rgba(255,255,255,.09);padding-top:32px;animation:heroFadeUp .9s .6s var(--ease-out) both}
+.hero-stat{padding:0 40px 0 0}
+.hero-stat:first-child{padding-left:0}
+.hero-stat+.hero-stat{border-left:1px solid rgba(255,255,255,.09);padding-left:40px}
+.hero-stat .num{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:#fff;display:block;letter-spacing:-.02em}
+.hero-stat .lbl{font-size:10.5px;color:rgba(255,255,255,.4);margin-top:3px;display:block;letter-spacing:.07em;text-transform:uppercase}
+.float-card{position:absolute;bottom:80px;right:56px;z-index:3;background:rgba(255,255,255,.97);border-radius:var(--r-md);padding:14px 18px;display:flex;align-items:center;gap:12px;box-shadow:0 20px 50px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.9);animation:floatIn .8s .8s var(--ease-spring) both}
+@keyframes floatIn{from{opacity:0;transform:translateY(18px) scale(.94)}to{opacity:1;transform:translateY(0) scale(1)}}
+.float-avs{display:flex}
+.float-avs img{width:32px;height:32px;border-radius:50%;border:2px solid #fff;margin-right:-8px;object-fit:cover}
+.float-txt strong{display:block;font-size:13px;font-weight:700;color:var(--ink)}
+.float-stars{font-size:10.5px;color:#f6c90e;margin-top:2px}
+.scroll-hint{position:absolute;bottom:36px;left:56px;z-index:3;display:flex;align-items:center;gap:10px;animation:heroFadeUp .9s 1s var(--ease-out) both}
+.scroll-line{width:36px;height:1px;background:rgba(255,255,255,.25)}
+.scroll-hint span{font-size:10.5px;color:rgba(255,255,255,.35);letter-spacing:.09em;text-transform:uppercase}
+
+.search-wrap{margin:-32px 56px 0;position:relative;z-index:20}
+.search-box{background:#fff;border-radius:var(--r-lg);box-shadow:0 12px 50px rgba(12,24,16,.12);display:flex;align-items:stretch;padding:7px 7px 7px 5px;border:1px solid var(--border)}
+.sf{flex:1;display:flex;align-items:center;gap:11px;padding:9px 20px;border-right:1px solid var(--border);transition:background .2s;border-radius:var(--r-md);cursor:pointer}
+.sf:hover{background:var(--teal-lt)}
+.sf:last-of-type{border-right:none}
+.sf-icon{width:36px;height:36px;background:var(--teal-lt);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s}
+.sf:hover .sf-icon{background:rgba(10,102,85,.14)}
+.sf-icon svg{width:16px;height:16px;stroke:var(--teal)}
+.sf-inner label{display:block;font-size:9.5px;font-weight:700;color:var(--muted-lt);text-transform:uppercase;letter-spacing:.9px;margin-bottom:4px}
+.sf-inner input,.sf-inner select{border:none;outline:none;font-size:14px;color:var(--ink);background:transparent;font-family:inherit;width:100%;font-weight:500}
+.sf-inner input::placeholder{color:var(--muted-lt);font-weight:400}
+.btn-search{background:var(--teal);color:#fff;border:none;border-radius:var(--r-md);padding:0 26px;font-size:13.5px;font-weight:600;cursor:pointer;white-space:nowrap;margin-left:4px;display:flex;align-items:center;gap:8px;font-family:inherit;transition:background .2s,transform .15s;min-height:50px;box-shadow:0 3px 14px var(--teal-glow)}
+.btn-search:hover{background:var(--ink-lt);transform:translateY(-1px)}
+.btn-search svg{width:16px;height:16px;stroke:#fff}
+
+section.pad{padding:88px 56px}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;font-size:10px;font-weight:700;letter-spacing:2.2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.eyebrow::before{content:'';width:20px;height:1.5px;background:var(--gold);border-radius:2px}
+.sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,3.2vw,48px);color:var(--ink);line-height:1.1;letter-spacing:-.025em;font-weight:500}
+.sec-hdr{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:44px}
+.view-all{font-size:13px;font-weight:600;color:var(--teal);text-decoration:none;display:flex;align-items:center;gap:5px;transition:gap .25s,color .2s;padding-bottom:4px}
+.view-all:hover{gap:10px;color:var(--ink-lt)}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.08s}
+.reveal-d2{transition-delay:.16s}
+.reveal-d3{transition-delay:.24s}
+.reveal-d4{transition-delay:.32s}
+.reveal-d5{transition-delay:.40s}
+
+.map-section{padding:88px 56px;background:var(--sand)}
+.map-inner{display:grid;grid-template-columns:1fr 460px;gap:56px;align-items:start}
+.map-canvas{position:relative;background:#fff;border-radius:var(--r-lg);overflow:hidden;border:1px solid var(--border);box-shadow:0 10px 40px rgba(12,24,16,.07)}
+#egypt-map-svg{width:100%;height:auto;display:block;cursor:pointer}
+.map-legend{display:flex;align-items:center;gap:16px;padding:12px 20px;background:rgba(10,102,85,.05);border-top:1px solid var(--border);font-size:11px;color:var(--muted);font-weight:500}
+.map-legend-dot{width:8px;height:8px;background:var(--teal);border-radius:50%;flex-shrink:0}
+.map-legend-pulse{width:8px;height:8px;background:rgba(10,102,85,.3);border-radius:50%;flex-shrink:0;animation:mapPulse 2s infinite}
+.map-sidebar{}
+.map-info-card{background:#fff;border-radius:var(--r-lg);padding:24px;border:1px solid var(--border);box-shadow:0 6px 28px rgba(12,24,16,.06);margin-bottom:14px;transition:transform .3s var(--ease-out),box-shadow .3s}
+.map-info-card:hover{transform:translateY(-2px);box-shadow:0 14px 42px rgba(12,24,16,.1)}
+.map-info-card.active{border-color:var(--teal);box-shadow:0 6px 28px var(--teal-glow)}
+.mic-region{font-size:9.5px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--teal);margin-bottom:7px}
+.mic-name{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:500;color:var(--ink);margin-bottom:9px;letter-spacing:-.02em}
+.mic-desc{font-size:13px;color:var(--muted);line-height:1.72;font-weight:300;margin-bottom:14px}
+.mic-tags{display:flex;gap:7px;flex-wrap:wrap}
+.mic-tag{font-size:10.5px;font-weight:600;padding:4px 11px;border-radius:20px;background:var(--teal-lt);color:var(--teal);border:1px solid rgba(10,102,85,.13)}
+.mic-btn{width:100%;margin-top:16px;background:var(--teal);color:#fff;border:none;border-radius:var(--r-sm);padding:11px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s,transform .15s;letter-spacing:.02em}
+.mic-btn:hover{background:var(--ink-lt);transform:translateY(-1px)}
+.map-point{cursor:pointer;transition:transform .25s var(--ease-spring);transform-origin:center}
+.map-point:hover{transform:scale(1.35)}
+.map-point .pulse-ring{fill:rgba(10,102,85,.18);animation:mapPulse 2.5s infinite ease-in-out}
+.map-point .pin-dot{fill:var(--teal)}
+@keyframes mapPulse{0%,100%{r:10;opacity:.5}50%{r:14;opacity:.1}}
+.region-western{fill:#e8f4ef;opacity:.7}
+.region-eastern{fill:#e4f1ee;opacity:.6}
+.region-sinai{fill:#dfeee9;opacity:.8}
+.region-nile{fill:#d0e8e0;opacity:.5}
+.nile-river{fill:none;stroke:#6ec9d4;stroke-width:2.5;stroke-linecap:round;opacity:.6}
+.med-sea{fill:#c8e8f0;opacity:.35}
+.red-sea{fill:#c0e4ee;opacity:.3}
+.border-line{fill:none;stroke:#0a6655;stroke-width:1.2;stroke-linejoin:round}
+.sinai-border{fill:none;stroke:#0a6655;stroke-width:1;stroke-linejoin:round;stroke-dasharray:4,3;opacity:.5}
+
+/* PLACES — 4 columns now, 2 rows of 4 */
+.places-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.place-card{position:relative;border-radius:var(--r-lg);overflow:hidden;aspect-ratio:3/4;cursor:pointer;transition:transform .42s var(--ease-out),box-shadow .42s}
+.place-card:hover{transform:translateY(-12px) scale(1.02);box-shadow:0 28px 56px rgba(12,24,16,.2)}
+.place-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s var(--ease-out)}
+.place-card:hover img{transform:scale(1.08)}
+.place-card::before{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(6,16,10,.9) 0%,rgba(6,16,10,.25) 52%,transparent 100%);z-index:1;transition:opacity .3s}
+.place-badge{position:absolute;top:12px;left:12px;z-index:3;background:rgba(255,255,255,.11);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);color:#fff;font-size:10px;font-weight:600;padding:4px 11px;border-radius:20px;letter-spacing:.05em}
+.heart{position:absolute;top:12px;right:12px;z-index:3;width:34px;height:34px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .25s var(--ease-spring),background .2s}
+.heart:hover{transform:scale(1.2)}
+.heart svg{width:14px;height:14px;stroke:rgba(255,255,255,.82);fill:transparent;transition:all .25s}
+.heart.liked svg{stroke:#e53e3e;fill:#e53e3e}
+.card-explore{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .3s}
+.place-card:hover .card-explore{opacity:1}
+.card-explore-btn{background:rgba(255,255,255,.95);color:var(--teal);font-size:12px;font-weight:700;padding:9px 20px;border-radius:40px;letter-spacing:.04em;transform:translateY(8px) scale(.92);transition:transform .3s var(--ease-spring)}
+.place-card:hover .card-explore-btn{transform:translateY(0) scale(1)}
+.place-info{position:absolute;bottom:0;left:0;right:0;padding:48px 16px 18px;z-index:2;transition:transform .3s var(--ease-out)}
+.place-card:hover .place-info{transform:translateY(-3px)}
+.place-info h3{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:#fff;letter-spacing:-.01em}
+.place-info p{font-size:11px;color:rgba(255,255,255,.56);display:flex;align-items:center;gap:4px;margin-top:4px}
+.place-info p svg{width:10px;height:10px;stroke:rgba(255,255,255,.56);flex-shrink:0}
+
+.why-section{background:var(--ink);position:relative;overflow:hidden;padding:88px 56px}
+.why-aurora{position:absolute;top:-180px;right:-80px;width:640px;height:640px;background:radial-gradient(circle,rgba(10,102,85,.15) 0%,transparent 65%);pointer-events:none}
+.why-aurora-2{position:absolute;bottom:-160px;left:-80px;width:560px;height:560px;background:radial-gradient(circle,rgba(184,120,32,.08) 0%,transparent 65%);pointer-events:none}
+.why-inner{display:grid;grid-template-columns:1fr 2fr;gap:72px;align-items:start;position:relative;z-index:1}
+.why-left .eyebrow{color:#7ee8d8}
+.why-left .eyebrow::before{background:#7ee8d8}
+.why-left .sec-title{color:#fff}
+.why-left p{font-size:14px;color:rgba(255,255,255,.42);line-height:1.88;margin-top:18px;font-weight:300}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.why-item{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.055);border-radius:var(--r-lg);padding:26px 22px;transition:background .3s,border-color .3s,transform .35s var(--ease-out);cursor:default}
+.why-item:hover{background:rgba(10,102,85,.1);border-color:rgba(10,102,85,.35);transform:translateY(-3px)}
+.why-icon{width:44px;height:44px;background:rgba(10,102,85,.18);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px}
+.why-item h4{font-size:14.5px;font-weight:600;color:#fff;margin-bottom:9px;letter-spacing:.01em}
+.why-item p{font-size:13px;color:rgba(255,255,255,.4);line-height:1.72;font-weight:300}
+
+.planner-section{padding:88px 56px;background:var(--sand)}
+.planner-inner{display:grid;grid-template-columns:1fr 1.2fr;gap:56px;align-items:start}
+.planner-left p{font-size:14.5px;color:var(--muted);line-height:1.82;margin-top:16px;font-weight:300}
+.planner-ui{background:#fff;border-radius:var(--r-xl);border:1px solid var(--border);box-shadow:0 20px 70px rgba(12,24,16,.09);overflow:hidden}
+.planner-header{background:linear-gradient(135deg,var(--teal) 0%,var(--ink-lt) 100%);padding:18px 22px;display:flex;align-items:center;gap:13px}
+.planner-header-icon{width:40px;height:40px;background:rgba(255,255,255,.13);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:19px}
+.planner-header-txt strong{display:block;font-size:14.5px;font-weight:700;color:#fff}
+.planner-header-txt span{font-size:11.5px;color:rgba(255,255,255,.6)}
+.planner-body{padding:22px}
+.planner-label{font-size:10.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted-lt);margin-bottom:11px}
+.planner-places{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:22px}
+.pp-toggle{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:20px;border:1.5px solid var(--border);font-size:12.5px;font-weight:500;color:var(--ink);cursor:pointer;background:#fff;font-family:inherit;transition:all .2s}
+.pp-toggle.sel{background:var(--teal-lt);border-color:var(--teal);color:var(--teal)}
+.pp-toggle:hover{border-color:var(--teal)}
+.planner-options{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:22px}
+.po-group label{display:block;font-size:10.5px;font-weight:600;letter-spacing:.9px;text-transform:uppercase;color:var(--muted-lt);margin-bottom:7px}
+.po-group select{width:100%;border:1.5px solid var(--border);border-radius:var(--r-sm);padding:9px 13px;font-size:13px;color:var(--ink);background:#fff;font-family:inherit;outline:none;cursor:pointer;transition:border-color .2s}
+.po-group select:focus{border-color:var(--teal)}
+.btn-generate{width:100%;background:var(--teal);color:#fff;border:none;border-radius:var(--r-md);padding:14px;font-size:14.5px;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:.02em;transition:opacity .2s,transform .2s var(--ease-spring),box-shadow .2s;box-shadow:0 5px 20px var(--teal-glow);display:flex;align-items:center;justify-content:center;gap:9px}
+.btn-generate:hover{opacity:.92;transform:translateY(-2px)}
+.btn-generate:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.planner-result{margin-top:18px;padding-top:18px;border-top:1px solid var(--border);display:none}
+.planner-result.show{display:block;animation:fadeSlide .4s var(--ease-out)}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.result-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-bottom:11px;display:flex;align-items:center;gap:7px}
+.result-label::before{content:'✦'}
+.result-content{font-size:13px;color:var(--ink);line-height:1.8;font-weight:300;max-height:260px;overflow-y:auto;padding-right:3px}
+.result-day{margin-bottom:14px;padding:13px 15px;background:var(--sand);border-radius:var(--r-sm);border-left:3px solid var(--teal)}
+.result-day strong{display:block;font-size:11px;font-weight:700;color:var(--teal);margin-bottom:5px;letter-spacing:.05em;text-transform:uppercase}
+
+.cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.cat-card{position:relative;border-radius:var(--r-xl);overflow:hidden;aspect-ratio:5/7;cursor:pointer;transition:transform .42s var(--ease-out),box-shadow .42s}
+.cat-card:hover{transform:translateY(-9px) scale(1.01);box-shadow:0 28px 60px rgba(12,24,16,.19)}
+.cat-card img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s var(--ease-out)}
+.cat-card:hover img{transform:scale(1.09)}
+.cat-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,14,10,.88) 0%,rgba(6,14,10,.22) 52%,transparent 100%)}
+.cat-count{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.09);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15);color:#fff;font-size:10.5px;font-weight:600;padding:5px 12px;border-radius:20px}
+.cat-lbl{position:absolute;bottom:20px;left:20px;right:20px}
+.cat-icon{width:44px;height:44px;background:rgba(255,255,255,.1);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.18);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:21px;margin-bottom:12px}
+.cat-lbl h3{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:500;color:#fff;margin-bottom:5px}
+.cat-lbl p{font-size:12px;color:rgba(255,255,255,.58)}
+.cat-explore{display:inline-flex;align-items:center;gap:6px;margin-top:12px;background:rgba(10,102,85,.55);border:1px solid rgba(255,255,255,.18);border-radius:40px;padding:6px 14px;font-size:11.5px;font-weight:600;color:#fff;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s var(--ease-spring)}
+.cat-card:hover .cat-explore{opacity:1;transform:translateY(0)}
+
+.testimonials-section{padding:88px 56px;background:var(--sand)}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+.testi-card{background:#fff;border-radius:var(--r-lg);padding:28px 24px;border:1px solid var(--border);transition:transform .35s var(--ease-out),box-shadow .35s}
+.testi-card:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(12,24,16,.09)}
+.testi-stars{color:#f6c90e;font-size:13px;letter-spacing:2px;margin-bottom:14px}
+.testi-text{font-family:'Cormorant Garamond',serif;font-size:17.5px;line-height:1.58;color:var(--ink);font-weight:400;font-style:italic;margin-bottom:20px}
+.testi-author{display:flex;align-items:center;gap:11px}
+.testi-av{width:40px;height:40px;border-radius:50%;overflow:hidden;border:1.5px solid var(--teal-lt);flex-shrink:0}
+.testi-av img{width:100%;height:100%;object-fit:cover}
+.testi-name{font-size:13px;font-weight:600;color:var(--ink)}
+.testi-origin{font-size:11.5px;color:var(--muted-lt);margin-top:2px}
+
+.nl-section{background:var(--ink2);padding:88px 56px;text-align:center;position:relative;overflow:hidden}
+.nl-glow{position:absolute;top:50%;left:50%;width:560px;height:560px;background:radial-gradient(circle,rgba(255,255,255,.04) 0%,transparent 65%);transform:translate(-50%,-50%);pointer-events:none}
+.nl-inner{position:relative;max-width:520px;margin:0 auto}
+.nl-section .eyebrow{color:rgba(255,255,255,.45);justify-content:center}
+.nl-section .eyebrow::before{background:rgba(255,255,255,.3)}
+.nl-section h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.2vw,50px);color:#fff;margin:12px 0 14px;line-height:1.1;letter-spacing:-.025em;font-weight:400}
+.nl-section h2 em{font-style:italic;font-weight:300}
+.nl-section p{font-size:14.5px;color:rgba(255,255,255,.55);margin-bottom:32px;font-weight:300}
+.nl-form{display:flex;gap:9px;max-width:420px;margin:0 auto;background:rgba(255,255,255,.07);border-radius:var(--r-md);padding:6px 6px 6px 20px;border:1px solid rgba(255,255,255,.15)}
+.nl-form input{flex:1;background:transparent;border:none;font-size:13.5px;color:#fff;outline:none;font-family:inherit}
+.nl-form input::placeholder{color:rgba(255,255,255,.4)}
+.nl-form button{background:#fff;color:var(--teal);border:none;border-radius:var(--r-sm);padding:12px 24px;font-size:13.5px;font-weight:700;cursor:pointer;font-family:inherit;transition:background .2s,transform .15s}
+.nl-form button:hover{background:var(--sand);transform:translateY(-1px)}
+.nl-privacy{font-size:11px;color:rgba(255,255,255,.3);margin-top:13px}
+
+footer{background:var(--ink);padding:66px 56px 28px}
+.footer-grid{display:grid;grid-template-columns:260px repeat(4,1fr);gap:44px;margin-bottom:50px}
+.footer-brand p{font-size:12.5px;color:rgba(255,255,255,.34);line-height:1.82;margin:16px 0 22px;font-weight:300}
+.socials{display:flex;gap:7px}
+.socials a{width:36px;height:36px;border-radius:9px;border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.36);text-decoration:none;font-size:12.5px;transition:all .2s}
+.socials a:hover{border-color:var(--teal);color:#fff;background:rgba(10,102,85,.22)}
+.footer-col h5{font-size:10px;font-weight:700;letter-spacing:1.3px;text-transform:uppercase;color:rgba(255,255,255,.24);margin-bottom:18px}
+.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.footer-col ul a{font-size:13px;color:rgba(255,255,255,.38);text-decoration:none;transition:color .2s;font-weight:300}
+.footer-col ul a:hover{color:rgba(255,255,255,.78)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.05);padding-top:24px;font-size:11.5px;color:rgba(255,255,255,.2);display:flex;justify-content:space-between;align-items:center}
+
+.modal-backdrop{position:fixed;inset:0;z-index:800;background:rgba(4,10,7,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .35s}
+.modal-backdrop.open{opacity:1;pointer-events:all}
+.modal{background:#fff;border-radius:var(--r-xl);max-width:700px;width:100%;max-height:92vh;overflow:hidden;display:flex;flex-direction:column;transform:translateY(36px) scale(.95);transition:transform .4s var(--ease-spring);box-shadow:0 44px 110px rgba(0,0,0,.38)}
+.modal-backdrop.open .modal{transform:translateY(0) scale(1)}
+.modal-hero-img{position:relative;height:280px;flex-shrink:0}
+.modal-hero-img img{width:100%;height:100%;object-fit:cover;display:block}
+.modal-hero-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(4,10,7,.62) 0%,transparent 55%)}
+.modal-close{position:absolute;top:14px;right:14px;z-index:4;width:36px;height:36px;background:rgba(255,255,255,.9);border:none;border-radius:50%;cursor:pointer;font-size:14px;color:var(--ink);display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;font-weight:700;box-shadow:0 2px 12px rgba(0,0,0,.18)}
+.modal-close:hover{background:#fff;transform:scale(1.1)}
+.modal-badge{position:absolute;bottom:16px;left:20px;z-index:4;background:var(--teal);color:#fff;font-size:11px;font-weight:700;padding:5px 14px;border-radius:20px;letter-spacing:.04em}
+.modal-body{padding:28px 32px 36px;overflow-y:auto;flex:1}
+.modal-title{font-family:'Cormorant Garamond',serif;font-size:30px;color:var(--ink);margin-bottom:11px;letter-spacing:-.025em;font-weight:500}
+.modal-meta{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--border)}
+.meta-item{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--muted)}
+.meta-item svg{width:13px;height:13px;stroke:var(--teal);flex-shrink:0}
+.modal-desc{font-size:14px;line-height:1.84;color:var(--muted);margin-bottom:26px;font-weight:300}
+.highlights-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px}
+.hl-card{background:var(--sand);border-radius:var(--r-md);padding:14px 16px;display:flex;align-items:flex-start;gap:12px;border:1px solid var(--border);transition:border-color .2s,transform .25s var(--ease-out)}
+.hl-card:hover{border-color:var(--teal);transform:translateY(-2px)}
+.hl-icon{width:38px;height:38px;background:var(--teal-lt);border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px}
+.hl-text strong{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-bottom:3px}
+.hl-text span{font-size:12px;color:var(--muted);line-height:1.56;font-weight:300}
+.tips-section h4{font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.tip-row{display:flex;gap:10px;margin-bottom:10px;font-size:13px;color:var(--muted);line-height:1.67;font-weight:300}
+.tip-dot{width:5px;height:5px;background:var(--teal);border-radius:50%;flex-shrink:0;margin-top:8px}
+.modal-actions{display:flex;gap:11px;margin-top:26px}
+.btn-modal-p{flex:1;background:var(--teal);color:#fff;border:none;border-radius:var(--r-md);padding:13px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s,transform .15s}
+.btn-modal-p:hover{background:var(--ink-lt);transform:translateY(-1px)}
+.btn-modal-g{padding:13px 22px;background:transparent;border:1.5px solid var(--border);border-radius:var(--r-md);font-size:13.5px;font-weight:500;color:var(--ink);cursor:pointer;font-family:inherit;transition:all .2s}
+.btn-modal-g:hover{border-color:var(--teal);color:var(--teal)}
+
+#chat-widget{position:fixed;bottom:28px;right:28px;z-index:700;font-family:'Inter',sans-serif}
+#chat-toggle{width:58px;height:58px;border-radius:50%;background:var(--teal);border:none;cursor:pointer;box-shadow:0 6px 26px var(--teal-glow);display:flex;align-items:center;justify-content:center;font-size:24px;transition:transform .3s var(--ease-spring),box-shadow .3s;position:relative}
+#chat-toggle:hover{transform:scale(1.1);box-shadow:0 12px 36px var(--teal-glow)}
+.chat-notif{position:absolute;top:1px;right:2px;width:13px;height:13px;background:#e53e3e;border-radius:50%;border:2px solid #fff;animation:notifPulse 2s infinite}
+@keyframes notifPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:.7}}
+#chat-box{display:none;flex-direction:column;position:absolute;bottom:72px;right:0;width:370px;height:530px;background:#fff;border-radius:var(--r-xl);box-shadow:0 24px 70px rgba(0,0,0,.2);overflow:hidden;border:1px solid var(--border)}
+#chat-box.open{display:flex;animation:chatIn .4s var(--ease-spring)}
+@keyframes chatIn{from{opacity:0;transform:translateY(24px) scale(.92)}to{opacity:1;transform:translateY(0) scale(1)}}
+#chat-header{background:var(--teal);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+#chat-header-left{display:flex;align-items:center;gap:12px}
+.chat-av{width:42px;height:42px;background:rgba(255,255,255,.14);border:1.5px solid rgba(255,255,255,.22);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.chat-hdr-name{font-weight:700;font-size:14.5px;color:#fff}
+.chat-hdr-status{font-size:10.5px;color:rgba(255,255,255,.6);margin-top:2px;display:flex;align-items:center;gap:5px}
+.online-dot{width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block;animation:onlinePulse 3s infinite}
+@keyframes onlinePulse{0%,100%{opacity:1}50%{opacity:.5}}
+#chat-close{width:30px;height:30px;background:rgba(255,255,255,.13);border:none;color:#fff;border-radius:50%;cursor:pointer;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;transition:background .2s}
+#chat-close:hover{background:rgba(255,255,255,.25)}
+#chat-messages{flex:1;overflow-y:auto;padding:14px 13px;display:flex;flex-direction:column;gap:13px;scroll-behavior:smooth;background:#f6f9f7}
+#chat-messages::-webkit-scrollbar{width:3px}
+#chat-messages::-webkit-scrollbar-thumb{background:var(--teal-lt);border-radius:3px}
+.msg{display:flex;gap:7px}
+.msg.bot{align-items:flex-start}
+.msg.user{justify-content:flex-end}
+.bot-icon{width:30px;height:30px;background:var(--teal-lt);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:2px;border:1px solid rgba(10,102,85,.13)}
+.bubble{max-width:82%;padding:12px 15px;border-radius:17px;font-size:13px;line-height:1.7;word-break:break-word}
+.msg.bot .bubble{background:#fff;color:var(--ink);border-bottom-left-radius:4px;box-shadow:0 1px 8px rgba(12,24,16,.07);border:1px solid var(--border)}
+.msg.user .bubble{background:var(--teal);color:#fff;border-bottom-right-radius:4px;box-shadow:0 2px 10px var(--teal-glow)}
+.msg-time{font-size:9.5px;opacity:.36;margin-top:4px;display:block}
+.msg.user .msg-time{text-align:right}
+.typing-dots{display:flex;gap:4px;padding:4px 0}
+.typing-dot{width:6px;height:6px;background:var(--muted-lt);border-radius:50%;animation:typeBounce 1s infinite}
+.typing-dot:nth-child(2){animation-delay:.15s}
+.typing-dot:nth-child(3){animation-delay:.3s}
+@keyframes typeBounce{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-8px)}}
+#chat-suggestions{display:flex;gap:6px;padding:9px 13px 5px;flex-wrap:wrap;flex-shrink:0;background:#f6f9f7;border-top:1px solid var(--border)}
+#chat-suggestions button{background:#fff;border:1px solid var(--border);border-radius:20px;padding:6px 12px;font-size:11.5px;font-weight:500;color:var(--ink);cursor:pointer;transition:all .2s;white-space:nowrap;font-family:inherit}
+#chat-suggestions button:hover{background:var(--teal-lt);border-color:var(--teal);color:var(--teal)}
+#chat-input-wrap{display:flex;align-items:center;gap:8px;padding:9px 13px;border-top:1px solid var(--border);flex-shrink:0;background:#fff}
+#chat-input{flex:1;border:1.5px solid var(--border);border-radius:22px;padding:9px 15px;font-size:13px;outline:none;font-family:inherit;color:var(--ink);background:#fff;transition:border-color .2s}
+#chat-input:focus{border-color:var(--teal)}
+#chat-input::placeholder{color:var(--muted-lt)}
+#chat-send{width:38px;height:38px;background:var(--teal);border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background .2s,transform .2s var(--ease-spring);box-shadow:0 2px 10px var(--teal-glow)}
+#chat-send:hover{background:var(--ink-lt);transform:scale(1.08)}
+#chat-send:disabled{background:#ccc;cursor:not-allowed;transform:none;box-shadow:none}
+
+.toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--ink);color:#fff;padding:11px 22px;border-radius:40px;font-size:13px;font-weight:500;box-shadow:0 10px 36px rgba(0,0,0,.22);z-index:1000;opacity:0;pointer-events:none;transition:all .3s var(--ease-out);white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:1100px){
+  nav,.hero-content,.search-wrap,section.pad,.map-section,.why-section,.planner-section,.testimonials-section,.nl-section,footer{padding-left:28px;padding-right:28px}
+  .search-wrap{margin-left:28px;margin-right:28px}
+  .places-grid{grid-template-columns:repeat(3,1fr)}
+  .map-inner{grid-template-columns:1fr}
+  .why-inner{grid-template-columns:1fr}
+  .planner-inner{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+}
+@media(max-width:768px){
+  .nav-links{display:none}
+  .places-grid{grid-template-columns:repeat(2,1fr)}
+  .cat-grid{grid-template-columns:1fr 1fr}
+  .testimonials-grid{grid-template-columns:1fr}
+  .float-card{display:none}
+  .search-box{flex-direction:column;padding:12px}
+  .sf{border-right:none;padding:9px 0;border-bottom:1px solid var(--border)}
+  .sf:last-of-type{border-bottom:none}
+  .btn-search{justify-content:center;min-height:44px}
+  #chat-box{width:calc(100vw - 28px);right:-8px}
+  .highlights-grid{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .hero h1{font-size:44px}
+  .places-grid{grid-template-columns:1fr 1fr}
+  .cat-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body>
+
+<div class="custom-cursor" id="cursor"></div>
+<div class="custom-cursor-ring" id="cursorRing"></div>
+<div class="toast" id="toast"></div>
+
+<nav id="mainNav" class="hero-nav">
+  <a class="logo" href="#">
+    <div class="logo-mark">🏺</div>
+    <span class="logo-text">Explore Egypt's<br><span>Hidden Places</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" class="active">Home</a></li>
+    <li><a href="#map-sec">Map</a></li>
+    <li><a href="#places-sec">Destinations</a></li>
+    <li><a href="#planner-sec">Trip Planner</a></li>
+    <li><a href="#about-sec">About</a></li>
+  </ul>
+  <button class="btn-nav" onclick="toggleChat()">Ask Daleel ✦</button>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="pulse-dot"></span>Discover Hidden Egypt</div>
+    <h1>Find the <em>Egypt</em><br>most travelers<br><strong>miss ✦</strong></h1>
+    <p class="hero-sub">Hidden gems, authentic experiences, and unforgettable journeys — far beyond the tourist trails of Cairo.</p>
+    <div class="hero-btns">
+      <button class="btn-hero-p" onclick="document.getElementById('places-sec').scrollIntoView({behavior:'smooth'})">
+        Explore Destinations
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="15" height="15"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <button class="btn-hero-g" onclick="toggleChat()">
+        Ask Our AI Guide
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="15" height="15"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="num">120+</span><span class="lbl">Hidden Places</span></div>
+      <div class="hero-stat"><span class="num">10K+</span><span class="lbl">Happy Travelers</span></div>
+      <div class="hero-stat"><span class="num">4.9★</span><span class="lbl">Average Rating</span></div>
+    </div>
+  </div>
+  <div class="float-card">
+    <div class="float-avs">
+      <img src="https://i.pravatar.cc/40?img=10" alt=""/><img src="https://i.pravatar.cc/40?img=20" alt=""/><img src="https://i.pravatar.cc/40?img=30" alt=""/>
+    </div>
+    <div class="float-txt">
+      <strong>10,000+ Happy Travelers</strong>
+      <div class="float-stars">★★★★★ &nbsp;4.9 / 5</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    <span>Scroll to explore</span>
+  </div>
+</section>
+
+<div class="search-wrap reveal">
+  <div class="search-box">
+    <div class="sf">
+      <div class="sf-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div class="sf-inner"><label>Where to?</label><input type="text" placeholder="Search destinations…" id="searchInput"/></div>
+    </div>
+    <div class="sf">
+      <div class="sf-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+      <div class="sf-inner"><label>When?</label><input type="text" placeholder="Best time varies…" id="dateInput"/></div>
+    </div>
+    <div class="sf">
+      <div class="sf-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="sf-inner"><label>Travelers</label><select><option>2 Travelers</option><option>Solo</option><option>3 Travelers</option><option>4+ Group</option></select></div>
+    </div>
+    <button class="btn-search" onclick="handleSearch()">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Search
+    </button>
+  </div>
+</div>
+
+<section class="map-section" id="map-sec">
+  <div class="sec-hdr reveal">
+    <div>
+      <div class="eyebrow">Explore Interactively</div>
+      <h2 class="sec-title">Tap the Map to Discover</h2>
+    </div>
+  </div>
+  <div class="map-inner">
+    <div class="map-canvas reveal">
+      <svg id="egypt-map-svg" viewBox="0 0 620 700" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#e8f3ee"/>
+            <stop offset="100%" stop-color="#d8eae2"/>
+          </linearGradient>
+          <linearGradient id="medGrad" x1="0" y1="1" x2="0" y2="0">
+            <stop offset="0%" stop-color="#b8dcec"/>
+            <stop offset="100%" stop-color="#c8e8f4"/>
+          </linearGradient>
+          <linearGradient id="redGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#c4e2ee"/>
+            <stop offset="100%" stop-color="#b8d8e8"/>
+          </linearGradient>
+        </defs>
+        <rect width="620" height="700" fill="#f0f6f3"/>
+        <rect x="0" y="0" width="620" height="72" fill="url(#medGrad)" opacity=".55"/>
+        <text x="200" y="38" fill="#5aabca" font-size="11" font-family="Inter,sans-serif" font-weight="500" text-anchor="middle" opacity=".8">Mediterranean Sea</text>
+        <path d="M 490 155 L 580 155 L 600 300 L 610 450 L 580 600 L 520 680 L 510 640 L 530 540 L 540 440 L 520 350 L 498 210 Z" fill="url(#redGrad)" opacity=".5"/>
+        <text x="570" y="380" fill="#4a9ab8" font-size="10" font-family="Inter,sans-serif" font-weight="500" text-anchor="middle" opacity=".75" transform="rotate(-90,570,380)">Red Sea</text>
+        <path d="M 370 155 L 420 155 L 430 200 L 420 280 L 406 330 L 390 310 L 385 240 L 374 180 Z" fill="#c4dce8" opacity=".45"/>
+        <text x="398" y="230" fill="#4a8aaa" font-size="8.5" font-family="Inter,sans-serif" font-weight="500" text-anchor="middle" opacity=".7" transform="rotate(-80,398,230)">Gulf of Suez</text>
+        <path d="M 488 155 L 530 155 L 545 200 L 540 260 L 510 300 L 494 265 L 492 210 Z" fill="#c0dae6" opacity=".4"/>
+        <text x="520" y="215" fill="#4a8aaa" font-size="8" font-family="Inter,sans-serif" font-weight="500" text-anchor="middle" opacity=".65" transform="rotate(-75,520,215)">Gulf of Aqaba</text>
+        <path d="M 62 72 L 380 72 L 380 155 L 370 155 L 374 180 L 385 240 L 390 310 L 406 330 L 412 350 L 406 360 L 390 355 L 375 368 L 370 355 Q 380 340 378 328 L 370 305 L 362 290 L 360 340 L 355 380 L 350 420 L 340 460 L 330 500 L 320 540 L 310 580 L 300 630 L 290 665 L 280 680 L 265 672 L 255 650 L 245 618 L 235 580 L 220 540 L 210 500 L 200 460 L 190 420 L 182 380 L 175 340 L 168 290 L 162 240 L 62 240 L 62 72 Z" fill="url(#bgGrad)" stroke="#0a6655" stroke-width="1.2" stroke-linejoin="round"/>
+        <path d="M 380 72 L 490 72 L 488 155 L 420 155 L 380 155 Z" fill="#d8eae0" stroke="#0a6655" stroke-width="1" stroke-linejoin="round"/>
+        <path d="M 390 155 L 420 155 L 430 200 L 420 280 L 406 330 L 412 350 L 406 360 L 390 355 L 375 368 L 370 355 Q 380 340 378 328 L 370 305 L 362 290 L 360 340 L 355 380 C 368 368 378 350 385 340 L 390 310 L 385 240 L 374 180 Z" fill="#9fcfb7" stroke="#095346" stroke-width="0.8" stroke-linejoin="round" opacity=".8"/>
+        <path d="M 280 680 C 282 660 285 640 288 620 C 292 598 296 576 298 555 C 300 534 300 512 298 490 C 296 468 292 447 290 426 C 288 405 290 384 292 364 C 294 344 296 322 294 302 C 292 282 286 265 284 246 C 282 226 284 206 286 186 C 288 166 290 148 288 130 C 286 112 280 96 276 80" fill="none" stroke="#6ec9d4" stroke-width="3" stroke-linecap="round" opacity=".65"/>
+        <path d="M 276 80 C 260 76 240 73 220 73 L 240 120 C 252 115 264 108 276 100 Z" fill="none" stroke="#57a1a9" stroke-width="1.8" stroke-linecap="round" opacity=".5"/>
+        <path d="M 276 80 C 290 76 310 73 330 74 L 316 118 C 305 112 292 106 276 100 Z" fill="none" stroke="#57a1a9" stroke-width="1.8" stroke-linecap="round" opacity=".5"/>
+        <line x1="380" y1="72" x2="380" y2="155" stroke="#47899b" stroke-width="2.5" stroke-dasharray="5,3" opacity=".6"/>
+        <text x="368" y="112" fill="#3890a8" font-size="8" font-family="Inter,sans-serif" font-weight="600" text-anchor="middle" transform="rotate(-90,368,112)" opacity=".7">Suez Canal</text>
+        <g transform="translate(275,138)"><circle r="4" fill="#b87820" opacity=".8"/><circle r="8" fill="#b87820" opacity=".15"/><text x="10" y="4" fill="#6b4a10" font-size="9.5" font-family="Inter,sans-serif" font-weight="700">Cairo</text></g>
+        <g transform="translate(210,76)"><circle r="3" fill="#6b6b6b" opacity=".55"/><text x="6" y="4" fill="#444" font-size="8.5" font-family="Inter,sans-serif" font-weight="500">Alexandria</text></g>
+        <g transform="translate(296,580)"><circle r="3" fill="#6b6b6b" opacity=".55"/><text x="6" y="4" fill="#444" font-size="8.5" font-family="Inter,sans-serif" font-weight="500">Aswan</text></g>
+        <g transform="translate(294,480)"><circle r="3" fill="#2d2b2b" opacity=".55"/><text x="6" y="4" fill="#444" font-size="8.5" font-family="Inter,sans-serif" font-weight="500">Luxor</text></g>
+        <g class="map-point" data-place="siwa" onclick="mapClick('siwa')" transform="translate(90,430)">
+          <circle class="pulse-ring" cx="0" cy="0" r="11"/><circle class="pin-dot" cx="0" cy="0" r="6"/><circle cx="0" cy="0" r="3" fill="white"/>
+          <text x="14" y="4" fill="#193020" font-size="9.5" font-family="Inter,sans-serif" font-weight="700">Siwa</text>
+        </g>
+        <g class="map-point" data-place="white-desert" onclick="mapClick('white-desert')" transform="translate(148,310)">
+          <circle class="pulse-ring" cx="0" cy="0" r="11"/><circle class="pin-dot" cx="0" cy="0" r="6"/><circle cx="0" cy="0" r="3" fill="white"/>
+          <text x="14" y="4" fill="#0c1810" font-size="9.5" font-family="Inter,sans-serif" font-weight="700">White Desert</text>
+        </g>
+        <g class="map-point" data-place="wadi-rayan" onclick="mapClick('wadi-rayan')" transform="translate(215,195)">
+          <circle class="pulse-ring" cx="0" cy="0" r="11"/><circle class="pin-dot" cx="0" cy="0" r="6"/><circle cx="0" cy="0" r="3" fill="white"/>
+          <text x="14" y="4" fill="#0c1810" font-size="9.5" font-family="Inter,sans-serif" font-weight="700">Wadi El Rayan</text>
+        </g>
+        <g class="map-point" data-place="dahab" onclick="mapClick('dahab')" transform="translate(498,238)">
+          <circle class="pulse-ring" cx="0" cy="0" r="11"/><circle class="pin-dot" cx="0" cy="0" r="6"/><circle cx="0" cy="0" r="3" fill="white"/>
+          <text x="-72" y="-10" fill="#0c1810" font-size="9.5" font-family="Inter,sans-serif" font-weight="700">Dahab</text>
+        </g>
+        <g class="map-point" data-place="saint-catherine" onclick="mapClick('saint-catherine')" transform="translate(440,218)">
+          <circle class="pulse-ring" cx="0" cy="0" r="11"/><circle class="pin-dot" cx="0" cy="0" r="6"/><circle cx="0" cy="0" r="3" fill="white"/>
+          <text x="-80" y="18" fill="#0c1810" font-size="9.5" font-family="Inter,sans-serif" font-weight="700">St. Catherine</text>
+        </g>
+        <g transform="translate(30,660)">
+          <line x1="0" y1="0" x2="80" y2="0" stroke="#0a6655" stroke-width="1.5" opacity=".4"/>
+          <line x1="0" y1="-4" x2="0" y2="4" stroke="#0a6655" stroke-width="1.5" opacity=".4"/>
+          <line x1="80" y1="-4" x2="80" y2="4" stroke="#0a6655" stroke-width="1.5" opacity=".4"/>
+          <text x="40" y="-7" fill="#0a6655" font-size="8" font-family="Inter,sans-serif" text-anchor="middle" opacity=".55">~200 km</text>
+        </g>
+        <g transform="translate(560,640)">
+          <text x="0" y="-14" fill="#0a6655" font-size="11" font-family="Inter,sans-serif" font-weight="700" text-anchor="middle" opacity=".5">N</text>
+          <line x1="0" y1="-10" x2="0" y2="10" stroke="#0a6655" stroke-width="1.5" opacity=".4"/>
+          <line x1="-10" y1="0" x2="10" y2="0" stroke="#0a6655" stroke-width="1.5" opacity=".4"/>
+          <circle r="3" fill="#0a6655" opacity=".3"/>
+        </g>
+      </svg>
+      <div class="map-legend">
+        <div class="map-legend-pulse"></div>
+        <span>Click any pin to explore the destination</span>
+        <span style="margin-left:auto;opacity:.6;font-size:10px">5 destinations mapped</span>
+      </div>
+    </div>
+    <div class="map-sidebar" id="mapSidebar"></div>
+  </div>
+</section>
+
+<!-- PLACES GRID — 8 cards (4 cols × 2 rows) -->
+<section class="pad" id="places-sec">
+  <div class="sec-hdr reveal">
+    <div>
+      <div class="eyebrow">Popular Hidden Places</div>
+      <h2 class="sec-title">Hidden Gems Worth Discovering</h2>
+    </div>
+    <a href="#" class="view-all" onclick="showToast('All destinations coming soon!');return false">View all →</a>
+  </div>
+  <div class="places-grid">
+    <!-- Row 1 -->
+    <div class="place-card reveal reveal-d1" data-place="siwa">
+      <img src="https://images.unsplash.com/photo-1539768942893-daf53e448371?w=500&q=85" alt="Siwa Oasis" loading="lazy"/>
+      <div class="place-badge">🌴 Oasis</div>
+      <div class="heart" onclick="toggleHeart(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="card-explore"><div class="card-explore-btn">Explore →</div></div>
+      <div class="place-info"><h3>Siwa Oasis</h3><p><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Matrouh Governorate</p></div>
+    </div>
+    <div class="place-card reveal reveal-d2" data-place="white-desert">
+      <img src="https://images.unsplash.com/photo-1572523987776-a3b539d4a31f?w=500&q=85" alt="White Desert" loading="lazy"/>
+      <div class="place-badge">🏜️ Desert</div>
+      <div class="heart" onclick="toggleHeart(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="card-explore"><div class="card-explore-btn">Explore →</div></div>
+      <div class="place-info"><h3>White Desert</h3><p><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Farafra, New Valley</p></div>
+    </div>
+    <div class="place-card reveal reveal-d3" data-place="wadi-rayan">
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=85" alt="Wadi El Rayan" loading="lazy"/>
+      <div class="place-badge">💧 Lakes</div>
+      <div class="heart" onclick="toggleHeart(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="card-explore"><div class="card-explore-btn">Explore →</div></div>
+      <div class="place-info"><h3>Wadi El Rayan</h3><p><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Fayoum Governorate</p></div>
+    </div>
+    <div class="place-card reveal reveal-d4" data-place="dahab">
+      <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=500&q=85" alt="Dahab" loading="lazy"/>
+      <div class="place-badge">🤿 Diving</div>
+      <div class="heart" onclick="toggleHeart(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="card-explore"><div class="card-explore-btn">Explore →</div></div>
+      <div class="place-info"><h3>Dahab</h3><p><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>South Sinai</p></div>
+    </div>
+    <!-- Row 2 -->
+    <div class="place-card reveal reveal-d1" data-place="saint-catherine">
+      <img src="https://images.unsplash.com/photo-1614624532983-4ce03382d63d?w=500&q=85" alt="Saint Catherine" loading="lazy"/>
+      <div class="place-badge">⛰️ Mountains</div>
+      <div class="heart" onclick="toggleHeart(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="card-explore"><div class="card-explore-btn">Explore →</div></div>
+      <div class="place-info"><h3>Saint Catherine</h3><p><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>South Sinai</p></div>
+    </div>
+    <div class="place-card reveal reveal-d2" data-place="alexandria">
+      <img src="https://images.unsplash.com/photo-1572452158939-4f4ceea88c47?w=500&q=85" alt="Alexandria" loading="lazy"/>
+      <div class="place-badge">🌊 Mediterranean</div>
+      <div class="heart" onclick="toggleHeart(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="card-explore"><div class="card-explore-btn">Explore →</div></div>
+      <div class="place-info"><h3>Alexandria</h3><p><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Alexandria Governorate</p></div>
+    </div>
+    <div class="place-card reveal reveal-d3" data-place="luxor">
+      <img src="https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=500&q=85" alt="Luxor" loading="lazy"/>
+      <div class="place-badge">🏛️ Ancient Capital</div>
+      <div class="heart" onclick="toggleHeart(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="card-explore"><div class="card-explore-btn">Explore →</div></div>
+      <div class="place-info"><h3>Luxor</h3><p><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Luxor Governorate</p></div>
+    </div>
+    <div class="place-card reveal reveal-d4" data-place="aswan">
+      <img src="https://images.unsplash.com/photo-1568683073751-8a16fe8dd745?w=500&q=85" alt="Aswan" loading="lazy"/>
+      <div class="place-badge">🌺 Nubian Treasure</div>
+      <div class="heart" onclick="toggleHeart(event,this)"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="card-explore"><div class="card-explore-btn">Explore →</div></div>
+      <div class="place-info"><h3>Aswan</h3><p><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Aswan Governorate</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="why-section" id="about-sec">
+  <div class="why-aurora"></div>
+  <div class="why-aurora-2"></div>
+  <div class="why-inner">
+    <div class="why-left reveal">
+      <div class="eyebrow">Why Travel With Us</div>
+      <h2 class="sec-title">Authentic Journeys,<br>Meaningful Memories</h2>
+      <p>We go beyond the pyramids. Our local team curates experiences that connect you with Egypt's soul — its hidden valleys, ancient oases, and living cultures that have endured for millennia.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-item reveal reveal-d1"><div class="why-icon">🗺️</div><h4>Off the Beaten Path</h4><p>120+ destinations most tourists never discover, from desert canyons to remote Nile villages.</p></div>
+      <div class="why-item reveal reveal-d2"><div class="why-icon">🤝</div><h4>Trusted Local Guides</h4><p>Every experience is curated by Egyptians who know their land's rhythms, history, and secrets.</p></div>
+      <div class="why-item reveal reveal-d3"><div class="why-icon">📸</div><h4>Real Experiences</h4><p>Not just sightseeing — real stories, real food, real moments you'll carry forever.</p></div>
+      <div class="why-item reveal reveal-d4"><div class="why-icon">🤖</div><h4>AI Travel Assistant</h4><p>Meet Daleel — our AI guide available 24/7 to help plan your perfect Egyptian adventure.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="planner-section" id="planner-sec">
+  <div class="planner-inner">
+    <div class="planner-left reveal">
+      <div class="eyebrow">Powered by AI</div>
+      <h2 class="sec-title">Your Personal<br>Egypt Itinerary</h2>
+      <p>Pick your favourite destinations, tell us how long you have, and Daleel will craft a day-by-day plan tailored just for you — with local tips, travel times, and hidden extras.</p>
+    </div>
+    <div class="planner-ui reveal reveal-d2">
+      <div class="planner-header">
+        <div class="planner-header-icon">✦</div>
+        <div class="planner-header-txt">
+          <strong>Daleel Trip Planner</strong>
+          <span>AI-generated itinerary in seconds</span>
+        </div>
+      </div>
+      <div class="planner-body">
+        <div class="planner-label">Choose your destinations</div>
+        <div class="planner-places" id="plannerPlaces">
+          <button class="pp-toggle" data-p="Siwa Oasis" onclick="togglePlace(this)">🌴 Siwa Oasis</button>
+          <button class="pp-toggle" data-p="White Desert" onclick="togglePlace(this)">🏜️ White Desert</button>
+          <button class="pp-toggle" data-p="Wadi El Rayan" onclick="togglePlace(this)">💧 Wadi El Rayan</button>
+          <button class="pp-toggle" data-p="Dahab" onclick="togglePlace(this)">🤿 Dahab</button>
+          <button class="pp-toggle" data-p="Saint Catherine" onclick="togglePlace(this)">⛰️ St. Catherine</button>
+          <button class="pp-toggle" data-p="Marsa Alam" onclick="togglePlace(this)">🐢 Marsa Alam</button>
+          <button class="pp-toggle" data-p="Alexandria" onclick="togglePlace(this)">🌊 Alexandria</button>
+          <button class="pp-toggle" data-p="Luxor" onclick="togglePlace(this)">🏛️ Luxor</button>
+          <button class="pp-toggle" data-p="Aswan" onclick="togglePlace(this)">🌺 Aswan</button>
+        </div>
+        <div class="planner-options">
+          <div class="po-group">
+            <label>Trip Duration</label>
+            <select id="planDays"><option value="3">3 Days</option><option value="5" selected>5 Days</option><option value="7">7 Days</option><option value="10">10 Days</option></select>
+          </div>
+          <div class="po-group">
+            <label>Travel Style</label>
+            <select id="planStyle"><option value="adventure">Adventure</option><option value="relaxed" selected>Relaxed</option><option value="cultural">Cultural</option><option value="photography">Photography</option></select>
+          </div>
+        </div>
+        <button class="btn-generate" id="btnGenerate" onclick="generateItinerary()">
+          <span id="genBtnTxt">✦ Generate My Itinerary</span>
+        </button>
+        <div class="planner-result" id="plannerResult">
+          <div class="result-label">Your Personalised Itinerary</div>
+          <div class="result-content" id="resultContent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pad">
+  <div class="sec-hdr reveal">
+    <div>
+      <div class="eyebrow">Get Inspired</div>
+      <h2 class="sec-title">Explore Egypt Your Way</h2>
+    </div>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card reveal reveal-d1" data-cat="beaches">
+      <img src="https://images.unsplash.com/photo-1519046904884-53103b34b206?w=700&q=85" alt="Hidden Beaches" loading="lazy"/>
+      <div class="cat-ov"></div>
+      <div class="cat-count">12 shores</div>
+      <div class="cat-lbl"><div class="cat-icon">🌊</div><h3>Hidden Beaches</h3><p>Secret coastlines & reef coves</p><div class="cat-explore">Explore Now →</div></div>
+    </div>
+    <div class="cat-card reveal reveal-d2" data-cat="desert">
+      <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=700&q=85" alt="Desert Adventures" loading="lazy"/>
+      <div class="cat-ov"></div>
+      <div class="cat-count">8 routes</div>
+      <div class="cat-lbl"><div class="cat-icon">🌵</div><h3>Desert Adventures</h3><p>Epic dunes & canyon treks</p><div class="cat-explore">Explore Now →</div></div>
+    </div>
+    <div class="cat-card reveal reveal-d3" data-cat="historic">
+      <img src="https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=700&q=85" alt="Historic & Cultural" loading="lazy"/>
+      <div class="cat-ov"></div>
+      <div class="cat-count">5,000 years</div>
+      <div class="cat-lbl"><div class="cat-icon">🏺</div><h3>Historic & Cultural</h3><p>Temples, monasteries & more</p><div class="cat-explore">Explore Now →</div></div>
+    </div>
+    <div class="cat-card reveal reveal-d4" data-cat="oases">
+      <img src="https://images.unsplash.com/photo-1565967511849-76a60a516170?w=700&q=85" alt="Oases & Nature" loading="lazy"/>
+      <div class="cat-ov"></div>
+      <div class="cat-count">5 oases</div>
+      <div class="cat-lbl"><div class="cat-icon">🌴</div><h3>Oases & Nature</h3><p>Lush desert islands & springs</p><div class="cat-explore">Explore Now →</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="testimonials-section">
+  <div class="sec-hdr reveal">
+    <div>
+      <div class="eyebrow">Traveler Stories</div>
+      <h2 class="sec-title">What Explorers Say</h2>
+    </div>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testi-card reveal reveal-d1">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Siwa Oasis felt like stepping into another world entirely. We floated in the salt lake as the sun set over the ruins — something I'll never forget."</p>
+      <div class="testi-author"><div class="testi-av"><img src="https://i.pravatar.cc/80?img=11" alt=""/></div><div><div class="testi-name">Sarah Mitchell</div><div class="testi-origin">London, UK</div></div></div>
+    </div>
+    <div class="testi-card reveal reveal-d2">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Camping in the White Desert under a full moon was the most surreal experience of my life. The chalk formations glowed silver. Absolutely extraordinary."</p>
+      <div class="testi-author"><div class="testi-av"><img src="https://i.pravatar.cc/80?img=32" alt=""/></div><div><div class="testi-name">Marco Ferretti</div><div class="testi-origin">Milan, Italy</div></div></div>
+    </div>
+    <div class="testi-card reveal reveal-d3">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Daleel planned our whole 7-day Sinai trip, suggested local restaurants, and even warned us about the monastery schedule. Incredible tool."</p>
+      <div class="testi-author"><div class="testi-av"><img src="https://i.pravatar.cc/80?img=47" alt=""/></div><div><div class="testi-name">Yuki Tanaka</div><div class="testi-origin">Tokyo, Japan</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="nl-section">
+  <div class="nl-glow"></div>
+  <div class="nl-inner reveal">
+    <div class="eyebrow">Stay in the Loop</div>
+    <h2>Let Egypt surprise you,<br><em>every week</em></h2>
+    <p>Hidden places, travel tips, and exclusive offers — straight to your inbox.</p>
+    <div class="nl-form">
+      <input type="email" placeholder="your@email.com" id="nlEmail"/>
+      <button onclick="handleSubscribe()">Subscribe ✦</button>
+    </div>
+    <p class="nl-privacy">No spam, ever. Unsubscribe anytime.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo"><div class="logo-mark">🏺</div><span class="logo-text">Explore Egypt's<br><span>Hidden Places</span></span></div>
+      <p>Your gateway to Egypt's best-kept secrets and most authentic adventures.</p>
+      <div class="socials">
+        <a href="#" title="Facebook">f</a>
+        <a href="#" title="Instagram">ig</a>
+        <a href="#" title="YouTube">▶</a>
+        <a href="#" title="X">𝕏</a>
+      </div>
+    </div>
+    <div class="footer-col"><h5>Explore</h5><ul><li><a href="#">Home</a></li><li><a href="#places-sec">Destinations</a></li><li><a href="#planner-sec">Trip Planner</a></li><li><a href="#map-sec">Interactive Map</a></li><li><a href="#about-sec">About</a></li></ul></div>
+    <div class="footer-col"><h5>Top Places</h5><ul>
+      <li><a href="#" onclick="openPlaceModal('siwa');return false">Siwa Oasis</a></li>
+      <li><a href="#" onclick="openPlaceModal('white-desert');return false">White Desert</a></li>
+      <li><a href="#" onclick="openPlaceModal('wadi-rayan');return false">Wadi El Rayan</a></li>
+      <li><a href="#" onclick="openPlaceModal('dahab');return false">Dahab</a></li>
+      <li><a href="#" onclick="openPlaceModal('saint-catherine');return false">Saint Catherine</a></li>
+      <li><a href="#" onclick="openPlaceModal('alexandria');return false">Alexandria</a></li>
+      <li><a href="#" onclick="openPlaceModal('luxor');return false">Luxor</a></li>
+      <li><a href="#" onclick="openPlaceModal('aswan');return false">Aswan</a></li>
+    </ul></div>
+    <div class="footer-col"><h5>Travel Guide</h5><ul><li><a href="#">When to Visit</a></li><li><a href="#">Getting Around</a></li><li><a href="#">Travel Tips</a></li><li><a href="#">Packing List</a></li><li><a href="#">Local Customs</a></li></ul></div>
+    <div class="footer-col"><h5>Support</h5><ul><li><a href="#">FAQ</a></li><li><a href="#">Contact Us</a></li><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Explore Egypt's Hidden Places. All rights reserved.</span>
+    <span>Made with ❤️ in Egypt 🇪🇬</span>
+  </div>
+</footer>
+
+<div class="modal-backdrop" id="placeModal">
+  <div class="modal">
+    <div class="modal-hero-img"><img id="pmImg" src="" alt=""/><button class="modal-close" onclick="closeModal('placeModal')">✕</button><span class="modal-badge" id="pmBadge"></span></div>
+    <div class="modal-body" id="pmBody"></div>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="catModal">
+  <div class="modal" style="max-width:740px">
+    <div class="modal-hero-img"><img id="cmImg" src="" alt=""/><button class="modal-close" onclick="closeModal('catModal')">✕</button><span class="modal-badge" id="cmBadge"></span></div>
+    <div class="modal-body" id="cmBody"></div>
+  </div>
+</div>
+
+<div id="chat-widget">
+  <button id="chat-toggle" onclick="toggleChat()" aria-label="Chat with Daleel">
+    <span id="chatToggleIcon">💬</span>
+    <span class="chat-notif" id="chatNotif"></span>
+  </button>
+  <div id="chat-box">
+    <div id="chat-header">
+      <div id="chat-header-left">
+        <div class="chat-av">🏺</div>
+        <div>
+          <div class="chat-hdr-name">دليل — Daleel</div>
+          <div class="chat-hdr-status"><span class="online-dot"></span>Online · AI-powered</div>
+        </div>
+      </div>
+      <button id="chat-close" onclick="toggleChat()">✕</button>
+    </div>
+    <div id="chat-messages">
+      <div class="msg bot">
+        <div class="bot-icon">🏺</div>
+        <div>
+          <div class="bubble">مرحباً! 👋 أنا <strong>دليل</strong>، مرشدك لاكتشاف أسرار مصر.<br><br>اسألني عن أي مكان، أفضل وقت للزيارة، أو ساعدني أخطط رحلتك! 🌍</div>
+          <span class="msg-time">Now</span>
+        </div>
+      </div>
+    </div>
+    <div id="chat-suggestions">
+      <button onclick="quickSend('ما أجمل الأماكن المخفية في مصر؟')">🗺️ أماكن مخفية</button>
+      <button onclick="quickSend('نصائح للصحراء البيضاء؟')">🏜️ الصحراء البيضاء</button>
+      <button onclick="quickSend('أفضل وقت لزيارة سيوة؟')">🌴 سيوة</button>
+    </div>
+    <div id="chat-input-wrap">
+      <input id="chat-input" type="text" placeholder="Ask about any place in Egypt…" autocomplete="off" onkeydown="if(event.key==='Enter'){event.preventDefault();sendMessage()}"/>
+      <button id="chat-send" onclick="sendMessage()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" width="17" height="17"><path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+const PLACES={
+  siwa:{name:"Siwa Oasis",region:"Matrouh Governorate",badge:"🌴 Oasis & Nature",img:"https://images.unsplash.com/photo-1539768942893-daf53e448371?w=900&q=85",rating:"4.9",reviews:"2,140",distance:"560 km from Cairo",bestTime:"Oct – Apr",desc:"Siwa Oasis is one of Egypt's most isolated and enchanting destinations, nestled deep in the Libyan Desert. Famous for its salt lakes, ancient ruins, and the mystical Oracle Temple where Alexander the Great once consulted the gods, Siwa is a world unto itself. The local Amazigh (Berber) culture and centuries-old mud-brick architecture make it unlike anywhere else in Egypt.",highlights:[{icon:"🏛️",title:"Oracle Temple",desc:"Ancient temple consulted by Alexander the Great in 331 BC"},{icon:"🧂",title:"Salt Lakes",desc:"Float effortlessly in the hypersaline Bir Wahed natural lake"},{icon:"🌅",title:"Shali Fortress",desc:"Crumbling old city built from kershef — ancient salt rock"},{icon:"🚴",title:"Cycling Routes",desc:"Explore date-palm gardens and hidden springs by bicycle"}],tips:["Dress modestly — Siwa is conservative; cover arms and legs in the town","Best way to get around: donkey cart, bicycle, or traditional golf buggy","Visit Cleopatra's Spring for a refreshing natural pool swim","Try fresh dates, local olive oil, and Siwan handicrafts at the market"]},
+  "white-desert":{name:"White Desert",region:"Farafra, New Valley",badge:"🏜️ Desert Adventure",img:"https://images.unsplash.com/photo-1572523987776-a3b539d4a31f?w=900&q=85",rating:"4.8",reviews:"1,870",distance:"600 km from Cairo",bestTime:"Nov – Mar",desc:"The White Desert National Park is one of Egypt's most surreal landscapes — a vast moonscape of gleaming chalk formations sculpted by millennia of wind erosion into mushroom and chicken shapes. Camping here under the full moon is an otherworldly experience, with the chalk formations glowing silver-white in the darkness.",highlights:[{icon:"🍄",title:"Chalk Formations",desc:"Iconic mushroom-shaped white chalk rocks sculpted by wind erosion"},{icon:"🏕️",title:"Desert Camping",desc:"Overnight camps under star-filled skies — truly unforgettable"},{icon:"🦊",title:"Fennec Foxes",desc:"Spot fennec foxes and desert birds at dawn and dusk"},{icon:"💎",title:"Crystal Mountain",desc:"Nearby mountain studded with natural calcite and quartz crystals"}],tips:["A 4WD vehicle and licensed guide are essential — never enter alone","Bring warm layers: desert nights can drop near 0°C in winter","Visit nearby Black Desert and Crystal Mountain on the same trip","Best visited around the full moon for magical night photography"]},
+  "wadi-rayan":{name:"Wadi El Rayan",region:"Fayoum Governorate",badge:"💧 Lakes & Nature",img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85",rating:"4.7",reviews:"3,210",distance:"150 km from Cairo",bestTime:"Oct – Apr",desc:"Wadi El Rayan is a protected area in Fayoum featuring two beautiful artificial lakes connected by Egypt's only waterfall. Surrounded by desert, it's a haven for migratory birds, gazelles, and sand foxes. The turquoise waters and dramatic desert backdrop make it a favourite escape for Cairenes.",highlights:[{icon:"💦",title:"Egypt's Waterfall",desc:"The only natural-style waterfall in Egypt connecting two lakes"},{icon:"🐦",title:"Bird Watching",desc:"Over 165 bird species including flamingos and herons"},{icon:"🏖️",title:"Sandy Beaches",desc:"Peaceful lakeside shores perfect for picnics and photography"},{icon:"🦌",title:"Wildlife Reserve",desc:"Gazelles, foxes, and desert lynx roam the protected area"}],tips:["Go early on weekdays to avoid weekend crowds from Cairo","Combine with Wadi Hitan (Whale Valley) nearby — a UNESCO site","A 4WD is recommended for exploring the full park perimeter","Bring your own food and drinks as facilities are limited"]},
+  dahab:{name:"Dahab",region:"South Sinai",badge:"🤿 Diving & Beach",img:"https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=85",rating:"4.8",reviews:"5,640",distance:"430 km from Cairo",bestTime:"Year-round",desc:"Dahab is a laid-back Bedouin town on the Gulf of Aqaba that became one of the world's top diving destinations. The legendary Blue Hole — a 100-metre deep submarine sinkhole — draws freedivers from across the globe, while the town's relaxed café culture and vibrant reefs make it perfect for all types of travellers.",highlights:[{icon:"🕳️",title:"The Blue Hole",desc:"World-famous 100m deep submarine sinkhole for advanced divers"},{icon:"🪁",title:"Kitesurfing",desc:"Consistent gulf winds make Dahab a premier kitesurfing destination"},{icon:"🐠",title:"Coral Reefs",desc:"Snorkel the Canyon and Eel Garden directly from the shore"},{icon:"🏔️",title:"Mt. Sinai Day Trip",desc:"Easy excursion to watch sunrise from biblical Mount Sinai"}],tips:["The Blue Hole is beautiful for snorkeling — but dangerous for inexperienced divers","Rent a bicycle to reach the Blue Hole (8km north) along the scenic coast","Eat at the promenade restaurants for fresh Bedouin grilled fish at sunset","The town is very walkable — the main lagoon area is the social hub"]},
+  "saint-catherine":{name:"Saint Catherine",region:"South Sinai",badge:"⛰️ Mountains & History",img:"https://images.unsplash.com/photo-1614624532983-4ce03382d63d?w=900&q=85",rating:"4.9",reviews:"4,380",distance:"450 km from Cairo",bestTime:"Mar – May, Sep – Nov",desc:"Saint Catherine is a UNESCO World Heritage Site home to the world's oldest continuously inhabited Christian monastery and the biblical Mount Sinai. At 2,285 metres, the granite peaks offer incredible trekking, stargazing, and a spiritual atmosphere that has drawn pilgrims for over 1,500 years.",highlights:[{icon:"🌄",title:"Mount Sinai Sunrise",desc:"Climb 3,750 steps to witness one of the world's great sunrises"},{icon:"⛪",title:"St. Catherine Monastery",desc:"UNESCO site housing ancient manuscripts and the legendary Burning Bush"},{icon:"🥾",title:"Trekking Routes",desc:"Multi-day hikes through Sinai's granite valleys with Bedouin guides"},{icon:"🌌",title:"Stargazing",desc:"One of Egypt's finest dark-sky locations for astronomy"}],tips:["Start the Mount Sinai climb at 2 AM to reach the summit for sunrise","Wear sturdy hiking shoes and bring a warm jacket — very cold at the top","The monastery is closed on Fridays, Sundays, and Orthodox holidays","Hire a local Bedouin guide for mountain treks — they know the secret paths"]},
+  alexandria:{name:"Alexandria",region:"Alexandria Governorate",badge:"🌊 Mediterranean City",img:"https://images.unsplash.com/photo-1572452158939-4f4ceea88c47?w=900&q=85",rating:"4.7",reviews:"6,820",distance:"225 km from Cairo",bestTime:"Mar – Jun, Sep – Nov",desc:"Alexandria, the Pearl of the Mediterranean, was founded by Alexander the Great in 331 BC and became the intellectual capital of the ancient world. Today it blends Greco-Roman ruins, Ottoman palaces, and a vibrant corniche waterfront. The city's European-flavoured cafés, legendary seafood, and the stunning Bibliotheca Alexandrina make it a uniquely layered destination unlike anywhere else in Egypt.",highlights:[{icon:"📚",title:"Bibliotheca Alexandrina",desc:"Modern revival of the ancient Library of Alexandria — a marvel of architecture"},{icon:"🏰",title:"Qaitbay Citadel",desc:"15th-century sea fortress built on the site of the ancient lighthouse"},{icon:"🏛️",title:"Greco-Roman Museum",desc:"Thousands of artefacts spanning Egypt's Greek and Roman eras"},{icon:"🌊",title:"Stanley Beach & Corniche",desc:"Iconic seaside promenade lined with belle-époque villas and cafés"}],tips:["Take the overnight train from Cairo for a classic Egyptian travel experience","Visit the fish market at Abu Qir for the freshest seafood in Egypt","The catacombs of Kom el-Shoqafa are the largest Roman burial site in Egypt","Try feteer meshaltet (layered pastry) at the old pastry shops near the corniche"]},
+  luxor:{name:"Luxor",region:"Luxor Governorate",badge:"🏛️ Ancient Capital",img:"https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=900&q=85",rating:"4.9",reviews:"9,450",distance:"650 km from Cairo",bestTime:"Oct – Apr",desc:"Luxor is the world's greatest open-air museum, built on the ruins of ancient Thebes — once the most magnificent city on Earth. The east bank holds the living city alongside Karnak and Luxor Temples, while the west bank conceals the Valley of the Kings, the Valley of the Queens, and the breathtaking mortuary temples of Egypt's most powerful pharaohs.",highlights:[{icon:"👑",title:"Valley of the Kings",desc:"Tombs of Tutankhamun, Ramesses II and 60+ royal burials in the limestone cliffs"},{icon:"🏺",title:"Karnak Temple",desc:"The largest religious complex ever built — covering over 2 km²"},{icon:"🎈",title:"Hot Air Balloon",desc:"Sunrise balloon rides over the West Bank offer unforgettable aerial views"},{icon:"🚣",title:"Felucca on the Nile",desc:"Sail at sunset between the two banks on a traditional wooden sailboat"}],tips:["Visit Karnak at night for the sound-and-light show among the giant columns","Hire a bicycle to explore the West Bank temples at your own pace","Book Valley of the Kings early morning — crowds build fast after 9 AM","The local souk near Luxor Temple sells the best spices and saffron in Egypt"]},
+  aswan:{name:"Aswan",region:"Aswan Governorate",badge:"🌺 Nubian Treasure",img:"https://images.unsplash.com/photo-1568683073751-8a16fe8dd745?w=900&q=85",rating:"4.8",reviews:"7,230",distance:"880 km from Cairo",bestTime:"Oct – Mar",desc:"Aswan is Egypt's southernmost city and its most serene — a place where the Sahara meets the Nile in a landscape of golden dunes, jet-black granite rocks, and emerald islands. Home to the warmest people in Egypt, the Nubian community here maintains ancient traditions of music, crafts, and colourful architecture. The nearby Abu Simbel temples are among humanity's greatest monuments.",highlights:[{icon:"🏯",title:"Abu Simbel Temples",desc:"Ramesses II's colossal rock-cut temples relocated to save them from the Nile flood"},{icon:"🌺",title:"Nubian Villages",desc:"Brightly painted Nubian homes on Elephantine Island and the west bank"},{icon:"🛥️",title:"Philae Temple",desc:"Temple of Isis on a Nile island — accessible only by boat"},{icon:"🌅",title:"Felucca Sunset Cruise",desc:"Drift among the granite boulders of the First Cataract at golden hour"}],tips:["Take the Abu Simbel Sound & Light Show for a magical evening experience","Stay in a Nubian guesthouse on the west bank for an authentic cultural immersion","Visit the Aswan Botanical Garden on Kitchener's Island by rowboat","Try Nubian food: fried fish with peanut sauce, grilled kofta, and tamarind juice"]}
+};
+
+const CATEGORIES={
+  beaches:{name:"Hidden Beaches",badge:"🌊 Coastal Gems",img:"https://images.unsplash.com/photo-1519046904884-53103b34b206?w=900&q=85",desc:"Egypt's coastline stretches over 2,900 km along the Mediterranean and Red Sea, hiding pristine beaches far from the resort crowds.",places:[{icon:"🤿",name:"Marsa Alam",region:"Red Sea",note:"World-class diving & dugong sightings"},{icon:"🐢",name:"Ras Mohamed",region:"South Sinai",note:"National park with legendary reef walls"},{icon:"🐚",name:"El Quseir",region:"Red Sea",note:"Ottoman charm & untouched reef"},{icon:"🌅",name:"Nuweiba",region:"South Sinai",note:"Bedouin shores and peaceful gulf waters"}]},
+  desert:{name:"Desert Adventures",badge:"🌵 Into the Wild",img:"https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=900&q=85",desc:"Egypt is 95% desert — the Eastern Desert, the Western Desert, and Sinai all offer dramatic landscapes of dunes, canyons, oases, and ancient caravan routes.",places:[{icon:"🏜️",name:"White Desert",region:"Farafra",note:"Surreal chalk sculptures glowing under moonlight"},{icon:"⬛",name:"Black Desert",region:"Bahariya",note:"Volcanic black hills carpeting the landscape"},{icon:"🌊",name:"Great Sand Sea",region:"Libyan Desert",note:"Endless golden dunes near the Libyan border"},{icon:"🏺",name:"Dakhla Oasis",region:"New Valley",note:"Ancient villages nestled in pink desert cliffs"}]},
+  historic:{name:"Historic & Cultural",badge:"🏺 5,000 Years",img:"https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=900&q=85",desc:"Beyond the Pyramids and Luxor temples lies an Egypt of forgotten Coptic monasteries, Roman ruins, Fatimid palaces, and Nubian villages.",places:[{icon:"⛪",name:"Wadi Natrun",region:"Beheira",note:"Ancient desert monasteries of the Coptic church"},{icon:"🏛️",name:"Tell El Amarna",region:"Minya",note:"Lost city of the pharaoh Akhenaten"},{icon:"🕌",name:"El-Muizz Street",region:"Cairo",note:"Medieval Islamic architecture in Old Cairo"},{icon:"🌺",name:"Nubian Villages",region:"Aswan",note:"Colourful painted homes along the Nile"}]},
+  oases:{name:"Oases & Nature",badge:"🌴 Desert Islands",img:"https://images.unsplash.com/photo-1565967511849-76a60a516170?w=900&q=85",desc:"Egypt's oases are islands of green life amid the vastness of the Sahara. Fed by ancient underground aquifers, they sustain unique cultures found nowhere else.",places:[{icon:"🌴",name:"Siwa Oasis",region:"Matrouh",note:"Remote Amazigh culture and salt lakes"},{icon:"🍄",name:"Bahariya Oasis",region:"Giza",note:"Gateway to the Black and White Deserts"},{icon:"💦",name:"Wadi El Rayan",region:"Fayoum",note:"Lakes, waterfalls, and migratory birds"},{icon:"🌿",name:"Kharga Oasis",region:"New Valley",note:"Ancient temples and vast palm forests"}]}
+};
+
+// Cursor
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+(function animRing(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+document.querySelectorAll('a,button,.place-card,.cat-card,.map-point,.why-item,.testi-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-grow'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-grow'));
+});
+
+// Nav
+const navEl=document.getElementById('mainNav');
+window.addEventListener('scroll',()=>{
+  if(window.scrollY>80){navEl.classList.add('solid');navEl.classList.remove('hero-nav')}
+  else{navEl.classList.remove('solid');navEl.classList.add('hero-nav')}
+});
+
+// Reveal
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// Toast
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2800)}
+
+// Heart
+function toggleHeart(e,el){e.stopPropagation();el.classList.toggle('liked');showToast(el.classList.contains('liked')?'❤️ Saved to wishlist':'Removed from wishlist')}
+
+// Map
+function mapClick(id){
+  const d=PLACES[id];if(!d)return;
+  const sb=document.getElementById('mapSidebar');
+  sb.innerHTML=`<div class="map-info-card active" style="animation:fadeSlide .35s ease-out">
+    <div class="mic-region">${d.region}</div>
+    <div class="mic-name">${d.name}</div>
+    <div class="mic-desc">${d.desc.substring(0,175)}…</div>
+    <div class="mic-tags">
+      <span class="mic-tag">⏱ ${d.bestTime}</span>
+      <span class="mic-tag">📍 ${d.distance}</span>
+      <span class="mic-tag">★ ${d.rating}</span>
+    </div>
+    <button class="mic-btn" onclick="openPlaceModal('${id}')">Full Details & Tips →</button>
+  </div>`;
+}
+(function(){
+  document.getElementById('mapSidebar').innerHTML=`<div class="map-info-card" style="border-style:dashed;opacity:.55">
+    <div class="mic-region">Interactive Map</div>
+    <div class="mic-name" style="font-size:17px">Tap any pin</div>
+    <div class="mic-desc">Click the green markers on the map to discover each destination.</div>
+  </div>`;
+})();
+
+// Modals
+function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow=''}
+function openPlaceModal(id){
+  const d=PLACES[id];if(!d)return;
+  document.getElementById('pmImg').src=d.img;
+  document.getElementById('pmImg').alt=d.name;
+  document.getElementById('pmBadge').textContent=d.badge;
+  document.getElementById('pmBody').innerHTML=`
+    <h2 class="modal-title">${d.name}</h2>
+    <div class="modal-meta">
+      <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>${d.region}</div>
+      <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>Best: ${d.bestTime}</div>
+      <div class="meta-item"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>${d.distance}</div>
+      <div style="color:#f6c90e;font-size:12.5px;display:flex;align-items:center;gap:4px">★★★★★ <span style="color:var(--muted);font-size:11.5px">${d.rating} (${d.reviews} reviews)</span></div>
+    </div>
+    <p class="modal-desc">${d.desc}</p>
+    <div class="highlights-grid">${d.highlights.map(h=>`<div class="hl-card"><div class="hl-icon">${h.icon}</div><div class="hl-text"><strong>${h.title}</strong><span>${h.desc}</span></div></div>`).join('')}</div>
+    <div class="tips-section"><h4>💡 Traveler Tips</h4>${d.tips.map(t=>`<div class="tip-row"><div class="tip-dot"></div><span>${t}</span></div>`).join('')}</div>
+    <div class="modal-actions">
+      <button class="btn-modal-p" onclick="showToast('✦ Opening trip planner…');closeModal('placeModal');document.getElementById('planner-sec').scrollIntoView({behavior:'smooth'})">Plan a Visit →</button>
+      <button class="btn-modal-g" onclick="closeModal('placeModal');showToast('❤️ Saved to wishlist')">Save to Wishlist ♡</button>
+    </div>`;
+  document.getElementById('placeModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function openCatModal(id){
+  const d=CATEGORIES[id];if(!d)return;
+  document.getElementById('cmImg').src=d.img;
+  document.getElementById('cmImg').alt=d.name;
+  document.getElementById('cmBadge').textContent=d.badge;
+  document.getElementById('cmBody').innerHTML=`
+    <h2 class="modal-title">${d.name}</h2>
+    <p class="modal-desc">${d.desc}</p>
+    <h4 style="font-size:13px;font-weight:700;color:var(--ink);margin-bottom:14px">✦ Featured Destinations</h4>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px">
+      ${d.places.map(p=>`<div class="hl-card"><div class="hl-icon">${p.icon}</div><div class="hl-text"><strong>${p.name}</strong><span style="color:var(--teal);font-size:11px;display:block;margin-bottom:2px">${p.region}</span><span>${p.note}</span></div></div>`).join('')}
+    </div>
+    <div class="modal-actions">
+      <button class="btn-modal-p" onclick="document.getElementById('planner-sec').scrollIntoView({behavior:'smooth'});closeModal('catModal')">Plan a Trip →</button>
+      <button class="btn-modal-g" onclick="closeModal('catModal');setTimeout(()=>{if(!document.getElementById('chat-box').classList.contains('open'))toggleChat()},200)">Ask Daleel 💬</button>
+    </div>`;
+  document.getElementById('catModal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+['placeModal','catModal'].forEach(id=>{document.getElementById(id).addEventListener('click',function(e){if(e.target===this)closeModal(id)})});
+document.querySelectorAll('.place-card').forEach(c=>{c.addEventListener('click',function(){openPlaceModal(this.dataset.place)})});
+document.querySelectorAll('.cat-card').forEach(c=>{c.addEventListener('click',function(){openCatModal(this.dataset.cat)})});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal('placeModal');closeModal('catModal')}});
+
+// Search
+function handleSearch(){
+  const q=(document.getElementById('searchInput').value||'').trim().toLowerCase();
+  if(!q){showToast('Please enter a destination first');return}
+  const match=Object.keys(PLACES).find(k=>PLACES[k].name.toLowerCase().includes(q)||PLACES[k].region.toLowerCase().includes(q));
+  if(match)openPlaceModal(match);
+  else showToast(`No results for "${q}" — try Siwa, Dahab, or White Desert`);
+}
+document.getElementById('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')handleSearch()});
+
+// Newsletter
+function handleSubscribe(){
+  const v=document.getElementById('nlEmail').value.trim();
+  if(!v||!v.includes('@')){showToast('Please enter a valid email');return}
+  document.getElementById('nlEmail').value='';
+  showToast("✦ You're subscribed! Welcome to Hidden Egypt.");
+}
+
+// Planner
+const selectedPlaces=new Set();
+function togglePlace(btn){
+  const p=btn.dataset.p;
+  if(selectedPlaces.has(p)){selectedPlaces.delete(p);btn.classList.remove('sel')}
+  else{selectedPlaces.add(p);btn.classList.add('sel')}
+}
+async function generateItinerary(){
+  if(selectedPlaces.size===0){showToast('Please select at least one destination');return}
+  const btn=document.getElementById('btnGenerate');
+  const txt=document.getElementById('genBtnTxt');
+  const result=document.getElementById('plannerResult');
+  const content=document.getElementById('resultContent');
+  btn.disabled=true;txt.textContent='✦ Generating your itinerary…';
+  result.classList.remove('show');
+  const days=document.getElementById('planDays').value;
+  const style=document.getElementById('planStyle').value;
+  const places=[...selectedPlaces].join(', ');
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,system:`You are Daleel, an expert Egypt travel planner. Create a concise, practical day-by-day itinerary. Format with DAY 1:, DAY 2: etc. Each day: 2-3 activities, one meal recommendation, one local tip. Keep it inspiring and specific. No markdown, plain text.`,messages:[{role:'user',content:`Create a ${days}-day ${style} itinerary for: ${places}. Include travel tips and best times.`}]})});
+    const data=await res.json();
+    if(data.error)throw new Error(data.error.message);
+    const text=data?.content?.[0]?.text||'';
+    const days_arr=text.split(/DAY \d+:/i).filter(Boolean);
+    if(days_arr.length>1){content.innerHTML=days_arr.map((d,i)=>`<div class="result-day"><strong>DAY ${i+1}</strong>${d.trim()}</div>`).join('')}
+    else{content.innerHTML=`<div class="result-day"><strong>YOUR ITINERARY</strong>${text.replace(/\n/g,'<br>')}</div>`}
+    result.classList.add('show');
+  }catch(err){
+    content.innerHTML=`<div class="result-day"><strong>SAMPLE ITINERARY</strong>Day 1: Arrive in Cairo, rest and explore Khan el-Khalili. Day 2: Drive to first destination. Days 3–${days}: Explore ${places} with local Bedouin guides.</div>`;
+    result.classList.add('show');
+  }
+  btn.disabled=false;txt.textContent='✦ Generate My Itinerary';
+}
+
+// Chatbot
+let chatHist=[],chatBusy=false;
+function toggleChat(){
+  const box=document.getElementById('chat-box');
+  const open=box.classList.toggle('open');
+  document.getElementById('chatToggleIcon').textContent=open?'✕':'💬';
+  document.getElementById('chatNotif').style.display=open?'none':'block';
+  if(open)document.getElementById('chat-input').focus();
+}
+function addMsg(role,html){
+  const feed=document.getElementById('chat-messages');
+  const w=document.createElement('div');w.className='msg '+role;
+  const now=new Date().toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+  if(role==='bot')w.innerHTML=`<div class="bot-icon">🏺</div><div><div class="bubble">${html}</div><span class="msg-time">${now}</span></div>`;
+  else w.innerHTML=`<div><div class="bubble">${html}</div><span class="msg-time">${now}</span></div>`;
+  feed.appendChild(w);feed.scrollTop=feed.scrollHeight;
+}
+function showTyping(){const feed=document.getElementById('chat-messages');const d=document.createElement('div');d.className='msg bot';d.id='typingInd';d.innerHTML=`<div class="bot-icon">🏺</div><div class="bubble"><div class="typing-dots"><span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span></div></div>`;feed.appendChild(d);feed.scrollTop=feed.scrollHeight}
+function hideTyping(){const t=document.getElementById('typingInd');if(t)t.remove()}
+function quickSend(text){document.getElementById('chat-suggestions').style.display='none';processMsg(text)}
+function sendMessage(){const inp=document.getElementById('chat-input');const text=inp.value.trim();if(!text||chatBusy)return;inp.value='';document.getElementById('chat-suggestions').style.display='none';processMsg(text)}
+async function processMsg(text){
+  chatBusy=true;document.getElementById('chat-send').disabled=true;
+  addMsg('user',escHtml(text));
+  chatHist.push({role:'user',content:text});
+  showTyping();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:600,system:`You are "Daleel" (دليل), a warm and knowledgeable Egypt travel guide on the "Explore Egypt's Hidden Places" website. Reply in Arabic by default; switch to English if the user writes in English. Keep responses to 2-3 short paragraphs, practical and specific. Use occasional emojis. Focus on hidden gems: Siwa Oasis, White Desert, Wadi El Rayan, Dahab, Saint Catherine, Marsa Alam, Fayoum, Wadi Natrun, El Quseir, Nubian Villages. You are Daleel — never mention Claude or Anthropic.`,messages:chatHist})});
+    const data=await res.json();
+    hideTyping();
+    if(data.error)throw new Error(data.error.message);
+    const reply=data?.content?.[0]?.text||'';
+    if(!reply)throw new Error('empty');
+    addMsg('bot',reply.trim().replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>'));
+    chatHist.push({role:'assistant',content:reply});
+  }catch(e){hideTyping();addMsg('bot','عذراً، في مشكلة مؤقتة 😔 جرب تاني بعد لحظة!')}
+  chatBusy=false;document.getElementById('chat-send').disabled=false;
+  document.getElementById('chat-input').focus();
+}
+function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+</script>
+</body>
+</html>
