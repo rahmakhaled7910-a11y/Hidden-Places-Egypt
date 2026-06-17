@@ -958,5 +958,742 @@ async function processMsg(text){
 }
 function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
 </script>
+
+<!-- ===== LANGUAGE SWITCHER — injected, original file untouched ===== -->
+<style>
+/* Language dropdown */
+#lang-widget{position:fixed;top:14px;right:20px;z-index:9000;font-family:'Inter',sans-serif}
+#lang-toggle{display:inline-flex;align-items:center;gap:7px;background:rgba(17,26,25,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:7px 13px;color:#fff;font-size:13px;font-weight:500;cursor:pointer;transition:background .18s,border-color .18s;box-shadow:0 4px 18px rgba(0,0,0,.25)}
+#lang-toggle:hover{background:rgba(40,65,57,.95);border-color:rgba(255,255,255,.28)}
+#lang-toggle .lt-flag{font-size:16px;line-height:1}
+#lang-toggle .lt-arrow{font-size:9px;opacity:.55;transition:transform .22s;margin-left:2px}
+#lang-widget.open #lang-toggle .lt-arrow{transform:rotate(180deg)}
+#lang-dropdown{display:none;position:absolute;top:calc(100% + 8px);right:0;background:rgba(17,26,25,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden;box-shadow:0 16px 40px rgba(0,0,0,.35);min-width:150px;animation:ddFadeIn .18s ease-out}
+@keyframes ddFadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+#lang-widget.open #lang-dropdown{display:block}
+.lb-opt{display:flex;align-items:center;gap:9px;width:100%;padding:9px 16px;background:none;border:none;color:rgba(255,255,255,.7);font-size:13px;font-weight:500;cursor:pointer;font-family:inherit;transition:background .15s,color .15s;text-align:left;white-space:nowrap}
+.lb-opt:hover{background:rgba(255,255,255,.08);color:#fff}
+.lb-opt.active{background:rgba(40,65,57,.7);color:#fff}
+.lb-opt .lb-flag{font-size:15px}
+body.lang-ar{direction:rtl;text-align:right}
+body.lang-ar nav{direction:rtl}
+</style>
+
+<div id="lang-widget">
+  <button id="lang-toggle" onclick="toggleLangDropdown()">
+    <span class="lt-flag" id="lt-flag">🇬🇧</span>
+    <span id="lt-name">English</span>
+    <span class="lt-arrow">&#9660;</span>
+  </button>
+  <div id="lang-dropdown">
+    <button class="lb-opt active" data-lang="en" onclick="selectLang('en','🇬🇧','English')"><span class="lb-flag">🇬🇧</span> English</button>
+    <button class="lb-opt" data-lang="ar" onclick="selectLang('ar','🇪🇬','عربي')"><span class="lb-flag">🇪🇬</span> عربي</button>
+    <button class="lb-opt" data-lang="de" onclick="selectLang('de','🇩🇪','Deutsch')"><span class="lb-flag">🇩🇪</span> Deutsch</button>
+    <button class="lb-opt" data-lang="fr" onclick="selectLang('fr','🇫🇷','Français')"><span class="lb-flag">🇫🇷</span> Français</button>
+    <button class="lb-opt" data-lang="tr" onclick="selectLang('tr','🇹🇷','Türkçe')"><span class="lb-flag">🇹🇷</span> Türkçe</button>
+    <button class="lb-opt" data-lang="es" onclick="selectLang('es','🇪🇸','Español')"><span class="lb-flag">🇪🇸</span> Español</button>
+  </div>
+</div>
+<script>
+function toggleLangDropdown(){document.getElementById('lang-widget').classList.toggle('open')}
+function selectLang(lang,flag,name){
+  document.getElementById('lt-flag').textContent=flag;
+  document.getElementById('lt-name').textContent=name;
+  document.querySelectorAll('.lb-opt').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+  document.getElementById('lang-widget').classList.remove('open');
+  switchLang(lang);
+}
+document.addEventListener('click',function(e){
+  const w=document.getElementById('lang-widget');
+  if(w&&!w.contains(e.target))w.classList.remove('open');
+});
+</script>
+
+<script>
+// ── Translation dictionary ──────────────────────────────────────────────────
+const LANG_DICT = {
+  en: {
+    dir:'ltr',
+    'Discover Hidden Egypt':'Discover Hidden Egypt',
+    'Find the':'Find the',
+    'most travelers':'most travelers',
+    'miss ✦':'miss ✦',
+    'Explore Destinations':'Explore Destinations',
+    'Ask Our AI Guide':'Ask Our AI Guide',
+    'Hidden Places':'Hidden Places',
+    'Happy Travelers':'Happy Travelers',
+    'Average Rating':'Average Rating',
+    'Scroll to explore':'Scroll to explore',
+    'Where to?':'Where to?',
+    'Search destinations…':'Search destinations…',
+    'When?':'When?',
+    'Best time varies…':'Best time varies…',
+    'Travelers':'Travelers',
+    'Search':'Search',
+    'Popular Hidden Places':'Popular Hidden Places',
+    'Hidden Gems Worth Discovering':'Hidden Gems Worth Discovering',
+    'View all →':'View all →',
+    'Explore Now →':'Explore Now →',
+    'Traveler Stories':'Traveler Stories',
+    'What Explorers Say':'What Explorers Say',
+    'Stay in the Loop':'Stay in the Loop',
+    'Let Egypt surprise you,':'Let Egypt surprise you,',
+    'every week':'every week',
+    'Hidden places, travel tips, and exclusive offers — straight to your inbox.':'Hidden places, travel tips, and exclusive offers — straight to your inbox.',
+    'Subscribe ✦':'Subscribe ✦',
+    'No spam, ever. Unsubscribe anytime.':'No spam, ever. Unsubscribe anytime.',
+    'hero-sub':"Hidden gems, authentic experiences, and unforgettable journeys — far beyond the tourist trails of Cairo.",
+    'Plan a Visit →':'Plan a Visit →',
+    'Save to Wishlist ♡':'Save to Wishlist ♡',
+    'Plan a Trip →':'Plan a Trip →',
+    'Ask Daleel 💬':'Ask Daleel 💬',
+    'reviews':'reviews',
+    'Explore':'Explore',
+    'Home':'Home',
+    'Destinations':'Destinations',
+    'Trip Planner':'Trip Planner',
+    'Interactive Map':'Interactive Map',
+    'About':'About',
+    'Top Places':'Top Places',
+    'Travel Guide':'Travel Guide',
+    'When to Visit':'When to Visit',
+    'Getting Around':'Getting Around',
+    'Travel Tips':'Travel Tips',
+    'Packing List':'Packing List',
+    'Local Customs':'Local Customs',
+    'Support':'Support',
+    'FAQ':'FAQ',
+    'Contact Us':'Contact Us',
+    'Privacy Policy':'Privacy Policy',
+    'Terms of Service':'Terms of Service',
+    'Made with ❤️ in Egypt 🇪🇬':'Made with ❤️ in Egypt 🇪🇬',
+    'Your gateway to Egypt\'s best-kept secrets and most authentic adventures.':'Your gateway to Egypt\'s best-kept secrets and most authentic adventures.',
+    '10,000+ Happy Travelers':'10,000+ Happy Travelers',
+    'chat-welcome':'Hi! 👋 I\'m <strong>Daleel</strong>, your guide to discovering Egypt\'s secrets.<br><br>Ask me about any place, best time to visit, or let me help plan your trip! 🌍',
+    'chat-placeholder':'Ask about any place in Egypt…',
+    'q1':'🗺️ Hidden Places',
+    'q2':'🏜️ White Desert',
+    'q3':'🌴 Siwa',
+    'chat-system':`You are "Daleel", a warm and knowledgeable Egypt travel guide on the "Explore Egypt's Hidden Places" website. Reply in English. Keep responses to 2-3 short paragraphs, practical and specific. Use occasional emojis. Focus on hidden gems: Siwa Oasis, White Desert, Wadi El Rayan, Dahab, Saint Catherine, Marsa Alam, Fayoum, Wadi Natrun, El Quseir, Nubian Villages. You are Daleel — never mention Claude or Anthropic.`,
+    'Online · AI-powered':'Online · AI-powered',
+  },
+  ar: {
+    dir:'rtl',
+    'Discover Hidden Egypt':'اكتشف مصر الخفية',
+    'Find the':'اكتشف',
+    'most travelers':'ما يفوته',
+    'miss ✦':'معظم المسافرين ✦',
+    'Explore Destinations':'استكشف الوجهات',
+    'Ask Our AI Guide':'اسأل مرشدنا الذكي',
+    'Hidden Places':'مكان مخفي',
+    'Happy Travelers':'مسافر سعيد',
+    'Average Rating':'متوسط التقييم',
+    'Scroll to explore':'مرر للاستكشاف',
+    'Where to?':'إلى أين؟',
+    'Search destinations…':'ابحث عن وجهات…',
+    'When?':'متى؟',
+    'Best time varies…':'أفضل وقت يتفاوت…',
+    'Travelers':'مسافرون',
+    'Search':'بحث',
+    'Popular Hidden Places':'الأماكن المخفية الشهيرة',
+    'Hidden Gems Worth Discovering':'جواهر خفية تستحق الاكتشاف',
+    'View all →':'عرض الكل →',
+    'Explore Now →':'استكشف الآن →',
+    'Traveler Stories':'قصص المسافرين',
+    'What Explorers Say':'ما يقوله المستكشفون',
+    'Stay in the Loop':'ابقَ على اطلاع',
+    'Let Egypt surprise you,':'دع مصر تفاجئك،',
+    'every week':'كل أسبوع',
+    'Hidden places, travel tips, and exclusive offers — straight to your inbox.':'أماكن مخفية، نصائح سفر، وعروض حصرية — مباشرة إلى بريدك.',
+    'Subscribe ✦':'اشترك ✦',
+    'No spam, ever. Unsubscribe anytime.':'لا رسائل مزعجة أبداً. إلغاء الاشتراك في أي وقت.',
+    'hero-sub':'جواهر خفية، تجارب أصيلة، ورحلات لا تُنسى — بعيداً عن المسارات السياحية في القاهرة.',
+    'Plan a Visit →':'خطط لزيارة →',
+    'Save to Wishlist ♡':'احفظ في القائمة ♡',
+    'Plan a Trip →':'خطط لرحلة →',
+    'Ask Daleel 💬':'اسأل دليل 💬',
+    'reviews':'تقييم',
+    'Explore':'استكشاف',
+    'Home':'الرئيسية',
+    'Destinations':'الوجهات',
+    'Trip Planner':'مخطط الرحلات',
+    'Interactive Map':'الخريطة التفاعلية',
+    'About':'حول',
+    'Top Places':'أبرز الأماكن',
+    'Travel Guide':'دليل السفر',
+    'When to Visit':'أفضل وقت للزيارة',
+    'Getting Around':'كيفية التنقل',
+    'Travel Tips':'نصائح السفر',
+    'Packing List':'قائمة الحقيبة',
+    'Local Customs':'العادات المحلية',
+    'Support':'الدعم',
+    'FAQ':'الأسئلة الشائعة',
+    'Contact Us':'اتصل بنا',
+    'Privacy Policy':'سياسة الخصوصية',
+    'Terms of Service':'شروط الخدمة',
+    'Made with ❤️ in Egypt 🇪🇬':'صُنع بـ ❤️ في مصر 🇪🇬',
+    'Your gateway to Egypt\'s best-kept secrets and most authentic adventures.':'بوابتك لأسرار مصر وأكثر المغامرات أصالةً.',
+    '10,000+ Happy Travelers':'+١٠٬٠٠٠ مسافر سعيد',
+    'chat-welcome':'مرحباً! 👋 أنا <strong>دليل</strong>، مرشدك لاكتشاف أسرار مصر.<br><br>اسألني عن أي مكان، أفضل وقت للزيارة، أو ساعدني أخطط رحلتك! 🌍',
+    'chat-placeholder':'اسأل عن أي مكان في مصر…',
+    'q1':'🗺️ أماكن مخفية',
+    'q2':'🏜️ الصحراء البيضاء',
+    'q3':'🌴 سيوة',
+    'chat-system':`أنت "دليل"، مرشد سفر مصري دافئ ومطلع على موقع "استكشف الأماكن الخفية في مصر". رد دائماً بالعربية. اجعل إجاباتك من 2-3 فقرات قصيرة وعملية. استخدم الإيموجي. ركّز على الجواهر الخفية: سيوة، الصحراء البيضاء، وادي الريان، دهب، سانت كاترين، مرسى علم، الفيوم، وادي النطرون، القصير، القرى النوبية. أنت دليل — لا تذكر كلود أو أنثروبيك أبداً.`,
+    'Online · AI-powered':'متصل · مدعوم بالذكاء الاصطناعي',
+  },
+  de: {
+    dir:'ltr',
+    'Discover Hidden Egypt':'Entdecke das verborgene Ägypten',
+    'Find the':'Finde das',
+    'most travelers':'meisten Reisenden',
+    'miss ✦':'verpassen ✦',
+    'Explore Destinations':'Ziele erkunden',
+    'Ask Our AI Guide':'KI-Reiseführer fragen',
+    'Hidden Places':'Versteckte Orte',
+    'Happy Travelers':'Glückliche Reisende',
+    'Average Rating':'Durchschnittsbewertung',
+    'Scroll to explore':'Scrollen zum Entdecken',
+    'Where to?':'Wohin?',
+    'Search destinations…':'Ziele suchen…',
+    'When?':'Wann?',
+    'Best time varies…':'Beste Zeit variiert…',
+    'Travelers':'Reisende',
+    'Search':'Suchen',
+    'Popular Hidden Places':'Beliebte verborgene Orte',
+    'Hidden Gems Worth Discovering':'Verborgene Schätze zum Entdecken',
+    'View all →':'Alle anzeigen →',
+    'Explore Now →':'Jetzt erkunden →',
+    'Traveler Stories':'Reisegeschichten',
+    'What Explorers Say':'Was Entdecker sagen',
+    'Stay in the Loop':'Bleib auf dem Laufenden',
+    'Let Egypt surprise you,':'Lass Ägypten dich überraschen,',
+    'every week':'jede Woche',
+    'Hidden places, travel tips, and exclusive offers — straight to your inbox.':'Versteckte Orte, Reisetipps und exklusive Angebote — direkt in dein Postfach.',
+    'Subscribe ✦':'Abonnieren ✦',
+    'No spam, ever. Unsubscribe anytime.':'Kein Spam. Jederzeit kündbar.',
+    'hero-sub':'Verborgene Schätze, authentische Erlebnisse und unvergessliche Reisen — weit abseits der Touristenpfade Kairos.',
+    'Plan a Visit →':'Besuch planen →',
+    'Save to Wishlist ♡':'Auf Wunschliste ♡',
+    'Plan a Trip →':'Reise planen →',
+    'Ask Daleel 💬':'Daleel fragen 💬',
+    'reviews':'Bewertungen',
+    'Explore':'Erkunden',
+    'Home':'Startseite',
+    'Destinations':'Ziele',
+    'Trip Planner':'Reiseplaner',
+    'Interactive Map':'Interaktive Karte',
+    'About':'Über uns',
+    'Top Places':'Top-Orte',
+    'Travel Guide':'Reiseführer',
+    'When to Visit':'Beste Reisezeit',
+    'Getting Around':'Fortbewegung',
+    'Travel Tips':'Reisetipps',
+    'Packing List':'Packliste',
+    'Local Customs':'Lokale Sitten',
+    'Support':'Support',
+    'FAQ':'FAQ',
+    'Contact Us':'Kontakt',
+    'Privacy Policy':'Datenschutz',
+    'Terms of Service':'Nutzungsbedingungen',
+    'Made with ❤️ in Egypt 🇪🇬':'Mit ❤️ in Ägypten gemacht 🇪🇬',
+    'Your gateway to Egypt\'s best-kept secrets and most authentic adventures.':'Dein Tor zu Ägyptens bestgehüteten Geheimnissen und authentischsten Abenteuern.',
+    '10,000+ Happy Travelers':'10.000+ glückliche Reisende',
+    'chat-welcome':'Hallo! 👋 Ich bin <strong>Daleel</strong>, dein Reiseführer für Ägyptens Geheimnisse.<br><br>Frag mich nach Orten, der besten Reisezeit oder lass mich deine Reise planen! 🌍',
+    'chat-placeholder':'Frag nach einem Ort in Ägypten…',
+    'q1':'🗺️ Verborgene Orte',
+    'q2':'🏜️ Weiße Wüste',
+    'q3':'🌴 Siwa',
+    'chat-system':`You are "Daleel", a warm and knowledgeable Egypt travel guide. Reply in German. Keep responses to 2-3 short paragraphs, practical and specific. Use occasional emojis. Focus on hidden gems: Siwa Oasis, White Desert, Wadi El Rayan, Dahab, Saint Catherine, Marsa Alam, Fayoum, Wadi Natrun, El Quseir, Nubian Villages. You are Daleel — never mention Claude or Anthropic.`,
+    'Online · AI-powered':'Online · KI-gestützt',
+  },
+  fr: {
+    dir:'ltr',
+    'Discover Hidden Egypt':'Découvrez l\'Égypte secrète',
+    'Find the':'Trouvez ce que',
+    'most travelers':'la plupart des voyageurs',
+    'miss ✦':'ratent ✦',
+    'Explore Destinations':'Explorer les destinations',
+    'Ask Our AI Guide':'Demandez à notre guide IA',
+    'Hidden Places':'Lieux cachés',
+    'Happy Travelers':'Voyageurs heureux',
+    'Average Rating':'Note moyenne',
+    'Scroll to explore':'Faites défiler pour explorer',
+    'Where to?':'Où aller ?',
+    'Search destinations…':'Rechercher des destinations…',
+    'When?':'Quand ?',
+    'Best time varies…':'La meilleure période varie…',
+    'Travelers':'Voyageurs',
+    'Search':'Rechercher',
+    'Popular Hidden Places':'Lieux cachés populaires',
+    'Hidden Gems Worth Discovering':'Trésors cachés à découvrir',
+    'View all →':'Tout voir →',
+    'Explore Now →':'Explorer maintenant →',
+    'Traveler Stories':'Récits de voyageurs',
+    'What Explorers Say':'Ce que disent les explorateurs',
+    'Stay in the Loop':'Restez informé',
+    'Let Egypt surprise you,':'Laissez l\'Égypte vous surprendre,',
+    'every week':'chaque semaine',
+    'Hidden places, travel tips, and exclusive offers — straight to your inbox.':'Lieux cachés, conseils de voyage et offres exclusives — directement dans votre boîte mail.',
+    'Subscribe ✦':'S\'abonner ✦',
+    'No spam, ever. Unsubscribe anytime.':'Pas de spam. Désabonnement à tout moment.',
+    'hero-sub':'Trésors cachés, expériences authentiques et voyages inoubliables — bien au-delà des sentiers touristiques du Caire.',
+    'Plan a Visit →':'Planifier une visite →',
+    'Save to Wishlist ♡':'Sauvegarder ♡',
+    'Plan a Trip →':'Planifier un voyage →',
+    'Ask Daleel 💬':'Demandez à Daleel 💬',
+    'reviews':'avis',
+    'Explore':'Explorer',
+    'Home':'Accueil',
+    'Destinations':'Destinations',
+    'Trip Planner':'Planificateur',
+    'Interactive Map':'Carte interactive',
+    'About':'À propos',
+    'Top Places':'Top lieux',
+    'Travel Guide':'Guide de voyage',
+    'When to Visit':'Quand visiter',
+    'Getting Around':'Se déplacer',
+    'Travel Tips':'Conseils voyage',
+    'Packing List':'Liste de bagages',
+    'Local Customs':'Coutumes locales',
+    'Support':'Assistance',
+    'FAQ':'FAQ',
+    'Contact Us':'Nous contacter',
+    'Privacy Policy':'Politique de confidentialité',
+    'Terms of Service':'Conditions d\'utilisation',
+    'Made with ❤️ in Egypt 🇪🇬':'Fait avec ❤️ en Égypte 🇪🇬',
+    'Your gateway to Egypt\'s best-kept secrets and most authentic adventures.':'Votre porte d\'entrée vers les secrets les mieux gardés d\'Égypte.',
+    '10,000+ Happy Travelers':'10 000+ voyageurs heureux',
+    'chat-welcome':'Bonjour ! 👋 Je suis <strong>Daleel</strong>, votre guide pour découvrir les secrets de l\'Égypte.<br><br>Posez-moi des questions sur n\'importe quel lieu, la meilleure période, ou laissez-moi planifier votre voyage ! 🌍',
+    'chat-placeholder':'Demandez n\'importe quel lieu en Égypte…',
+    'q1':'🗺️ Lieux cachés',
+    'q2':'🏜️ Désert Blanc',
+    'q3':'🌴 Siwa',
+    'chat-system':`You are "Daleel", a warm and knowledgeable Egypt travel guide. Reply in French. Keep responses to 2-3 short paragraphs, practical and specific. Use occasional emojis. Focus on hidden gems: Siwa Oasis, White Desert, Wadi El Rayan, Dahab, Saint Catherine, Marsa Alam, Fayoum, Wadi Natrun, El Quseir, Nubian Villages. You are Daleel — never mention Claude or Anthropic.`,
+    'Online · AI-powered':'En ligne · Propulsé par IA',
+  },
+  tr: {
+    dir:'ltr',
+    'Discover Hidden Egypt':'Gizli Mısır\'ı Keşfedin',
+    'Find the':'Çoğu gezginin',
+    'most travelers':'kaçırdığını',
+    'miss ✦':'bulun ✦',
+    'Explore Destinations':'Destinasyonları Keşfet',
+    'Ask Our AI Guide':'AI Rehberimize Sor',
+    'Hidden Places':'Gizli Yer',
+    'Happy Travelers':'Mutlu Gezgin',
+    'Average Rating':'Ortalama Puan',
+    'Scroll to explore':'Keşfetmek için kaydırın',
+    'Where to?':'Nereye?',
+    'Search destinations…':'Destinasyon ara…',
+    'When?':'Ne zaman?',
+    'Best time varies…':'En iyi zaman değişir…',
+    'Travelers':'Gezginler',
+    'Search':'Ara',
+    'Popular Hidden Places':'Popüler Gizli Yerler',
+    'Hidden Gems Worth Discovering':'Keşfedilmeye Değer Gizli Hazineler',
+    'View all →':'Tümünü gör →',
+    'Explore Now →':'Şimdi Keşfet →',
+    'Traveler Stories':'Gezgin Hikayeleri',
+    'What Explorers Say':'Kaşiflerin Söyledikleri',
+    'Stay in the Loop':'Haberdar Ol',
+    'Let Egypt surprise you,':'Mısır sizi şaşırtsın,',
+    'every week':'her hafta',
+    'Hidden places, travel tips, and exclusive offers — straight to your inbox.':'Gizli yerler, seyahat ipuçları ve özel teklifler — doğrudan gelen kutunuza.',
+    'Subscribe ✦':'Abone Ol ✦',
+    'No spam, ever. Unsubscribe anytime.':'Hiç spam yok. İstediğiniz zaman aboneliği iptal edin.',
+    'hero-sub':'Kahire\'nin turist rotalarının çok ötesinde, gizli hazineler, özgün deneyimler ve unutulmaz yolculuklar.',
+    'Plan a Visit →':'Ziyaret Planla →',
+    'Save to Wishlist ♡':'İstek Listesine Ekle ♡',
+    'Plan a Trip →':'Gezi Planla →',
+    'Ask Daleel 💬':'Daleel\'e Sor 💬',
+    'reviews':'yorum',
+    'Explore':'Keşfet',
+    'Home':'Ana Sayfa',
+    'Destinations':'Destinasyonlar',
+    'Trip Planner':'Gezi Planlayıcı',
+    'Interactive Map':'Etkileşimli Harita',
+    'About':'Hakkında',
+    'Top Places':'En İyi Yerler',
+    'Travel Guide':'Seyahat Rehberi',
+    'When to Visit':'Ne Zaman Gidilir',
+    'Getting Around':'Ulaşım',
+    'Travel Tips':'Seyahat İpuçları',
+    'Packing List':'Bavul Listesi',
+    'Local Customs':'Yerel Gelenekler',
+    'Support':'Destek',
+    'FAQ':'SSS',
+    'Contact Us':'İletişim',
+    'Privacy Policy':'Gizlilik Politikası',
+    'Terms of Service':'Kullanım Şartları',
+    'Made with ❤️ in Egypt 🇪🇬':'Mısır\'da ❤️ ile yapıldı 🇪🇬',
+    'Your gateway to Egypt\'s best-kept secrets and most authentic adventures.':'Mısır\'ın en iyi korunan sırlarına ve en özgün maceralarına açılan kapınız.',
+    '10,000+ Happy Travelers':'10.000+ mutlu gezgin',
+    'chat-welcome':'Merhaba! 👋 Ben <strong>Daleel</strong>, Mısır\'ın sırlarını keşfetmenizin rehberiyim.<br><br>Herhangi bir yer, en iyi ziyaret zamanı veya gezi planlaması hakkında bana sorun! 🌍',
+    'chat-placeholder':'Mısır\'daki herhangi bir yer hakkında sorun…',
+    'q1':'🗺️ Gizli Yerler',
+    'q2':'🏜️ Beyaz Çöl',
+    'q3':'🌴 Siwa',
+    'chat-system':`You are "Daleel", a warm and knowledgeable Egypt travel guide. Reply in Turkish. Keep responses to 2-3 short paragraphs, practical and specific. Use occasional emojis. Focus on hidden gems: Siwa Oasis, White Desert, Wadi El Rayan, Dahab, Saint Catherine, Marsa Alam, Fayoum, Wadi Natrun, El Quseir, Nubian Villages. You are Daleel — never mention Claude or Anthropic.`,
+    'Online · AI-powered':'Çevrimiçi · AI destekli',
+  },
+  es: {
+    dir:'ltr',
+    'Discover Hidden Egypt':'Descubre el Egipto oculto',
+    'Find the':'Encuentra lo que',
+    'most travelers':'la mayoría de viajeros',
+    'miss ✦':'se pierden ✦',
+    'Explore Destinations':'Explorar destinos',
+    'Ask Our AI Guide':'Pregunta a nuestro guía IA',
+    'Hidden Places':'Lugares ocultos',
+    'Happy Travelers':'Viajeros felices',
+    'Average Rating':'Valoración media',
+    'Scroll to explore':'Desplázate para explorar',
+    'Where to?':'¿A dónde?',
+    'Search destinations…':'Buscar destinos…',
+    'When?':'¿Cuándo?',
+    'Best time varies…':'La mejor época varía…',
+    'Travelers':'Viajeros',
+    'Search':'Buscar',
+    'Popular Hidden Places':'Lugares ocultos populares',
+    'Hidden Gems Worth Discovering':'Joyas ocultas que vale la pena descubrir',
+    'View all →':'Ver todo →',
+    'Explore Now →':'Explorar ahora →',
+    'Traveler Stories':'Historias de viajeros',
+    'What Explorers Say':'Lo que dicen los exploradores',
+    'Stay in the Loop':'Mantente informado',
+    'Let Egypt surprise you,':'Deja que Egipto te sorprenda,',
+    'every week':'cada semana',
+    'Hidden places, travel tips, and exclusive offers — straight to your inbox.':'Lugares ocultos, consejos de viaje y ofertas exclusivas — directamente a tu correo.',
+    'Subscribe ✦':'Suscribirse ✦',
+    'No spam, ever. Unsubscribe anytime.':'Sin spam. Cancela cuando quieras.',
+    'hero-sub':'Joyas ocultas, experiencias auténticas y viajes inolvidables — mucho más allá de las rutas turísticas de El Cairo.',
+    'Plan a Visit →':'Planificar visita →',
+    'Save to Wishlist ♡':'Guardar ♡',
+    'Plan a Trip →':'Planificar viaje →',
+    'Ask Daleel 💬':'Pregunta a Daleel 💬',
+    'reviews':'reseñas',
+    'Explore':'Explorar',
+    'Home':'Inicio',
+    'Destinations':'Destinos',
+    'Trip Planner':'Planificador',
+    'Interactive Map':'Mapa interactivo',
+    'About':'Acerca de',
+    'Top Places':'Mejores lugares',
+    'Travel Guide':'Guía de viaje',
+    'When to Visit':'Cuándo visitar',
+    'Getting Around':'Cómo moverse',
+    'Travel Tips':'Consejos de viaje',
+    'Packing List':'Lista de equipaje',
+    'Local Customs':'Costumbres locales',
+    'Support':'Soporte',
+    'FAQ':'Preguntas frecuentes',
+    'Contact Us':'Contáctanos',
+    'Privacy Policy':'Política de privacidad',
+    'Terms of Service':'Términos de servicio',
+    'Made with ❤️ in Egypt 🇪🇬':'Hecho con ❤️ en Egipto 🇪🇬',
+    'Your gateway to Egypt\'s best-kept secrets and most authentic adventures.':'Tu puerta de entrada a los secretos mejor guardados de Egipto.',
+    '10,000+ Happy Travelers':'10.000+ viajeros felices',
+    'chat-welcome':'¡Hola! 👋 Soy <strong>Daleel</strong>, tu guía para descubrir los secretos de Egipto.<br><br>¡Pregúntame sobre cualquier lugar, la mejor época para visitar, o déjame planificar tu viaje! 🌍',
+    'chat-placeholder':'Pregunta sobre cualquier lugar en Egipto…',
+    'q1':'🗺️ Lugares ocultos',
+    'q2':'🏜️ Desierto Blanco',
+    'q3':'🌴 Siwa',
+    'chat-system':`You are "Daleel", a warm and knowledgeable Egypt travel guide. Reply in Spanish. Keep responses to 2-3 short paragraphs, practical and specific. Use occasional emojis. Focus on hidden gems: Siwa Oasis, White Desert, Wadi El Rayan, Dahab, Saint Catherine, Marsa Alam, Fayoum, Wadi Natrun, El Quseir, Nubian Villages. You are Daleel — never mention Claude or Anthropic.`,
+    'Online · AI-powered':'En línea · Impulsado por IA',
+  }
+};
+
+let currentLang = 'en';
+
+// ── Walk the DOM and translate all text nodes & attributes ─────────────────
+function translateNode(node, d) {
+  if (node.nodeType === Node.TEXT_NODE) {
+    const orig = node._origText || (node._origText = node.textContent);
+    const trimmed = orig.trim();
+    if (trimmed && d[trimmed]) node.textContent = orig.replace(trimmed, d[trimmed]);
+  } else if (node.nodeType === Node.ELEMENT_NODE) {
+    // placeholder
+    if (node.placeholder) {
+      const orig = node._origPH || (node._origPH = node.placeholder);
+      if (d[orig]) node.placeholder = d[orig];
+    }
+    // don't go inside the lang bar itself or scripts/styles
+    if (['SCRIPT','STYLE','#lang-bar'].includes(node.tagName) || node.id === 'lang-bar') return;
+    node.childNodes.forEach(child => translateNode(child, d));
+  }
+}
+
+// Specific targeted replacements for the most important elements
+function applyLang(lang) {
+  const d = LANG_DICT[lang];
+  if (!d) return;
+  currentLang = lang;
+
+  // Direction
+  document.documentElement.lang = lang;
+  document.body.style.direction = d.dir;
+  document.body.classList.toggle('lang-ar', lang === 'ar');
+
+  // Active button
+  document.querySelectorAll('.lb-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+
+  // Hero eyebrow
+  const eyebrow = document.querySelector('.hero-eyebrow');
+  if (eyebrow) {
+    eyebrow.innerHTML = `<span class="pulse-dot"></span>${d['Discover Hidden Egypt'] || 'Discover Hidden Egypt'}`;
+  }
+
+  // Hero h1 — keep structure
+  const h1 = document.querySelector('.hero h1');
+  if (h1) {
+    h1.innerHTML = `${d['Find the'] || 'Find the'} <em>Egypt</em><br>${d['most travelers'] || 'most travelers'}<br><strong>${d['miss ✦'] || 'miss ✦'}</strong>`;
+  }
+
+  // Hero sub
+  const heroSub = document.querySelector('.hero-sub');
+  if (heroSub) heroSub.textContent = d['hero-sub'] || heroSub.textContent;
+
+  // Hero buttons
+  const btns = document.querySelectorAll('.btn-hero-p, .btn-hero-g');
+  if (btns[0]) btns[0].childNodes[0].textContent = '\n        ' + (d['Explore Destinations'] || 'Explore Destinations') + '\n        ';
+  if (btns[1]) btns[1].childNodes[0].textContent = '\n        ' + (d['Ask Our AI Guide'] || 'Ask Our AI Guide') + '\n        ';
+
+  // Stats labels
+  const lbls = document.querySelectorAll('.hero-stat .lbl');
+  const lblKeys = ['Hidden Places','Happy Travelers','Average Rating'];
+  lbls.forEach((l,i) => { if(d[lblKeys[i]]) l.textContent = d[lblKeys[i]]; });
+
+  // Scroll hint
+  const sh = document.querySelector('.scroll-hint span');
+  if (sh) sh.textContent = d['Scroll to explore'] || 'Scroll to explore';
+
+  // Search bar
+  const whereLabel = document.querySelector('.sf:nth-child(1) .sf-inner label');
+  const searchInput = document.getElementById('searchInput');
+  const whenLabel = document.querySelector('.sf:nth-child(2) .sf-inner label');
+  const travelersLabel = document.querySelector('.sf:nth-child(3) .sf-inner label');
+  const searchBtn = document.querySelector('.btn-search');
+  if (whereLabel) whereLabel.textContent = d['Where to?'] || 'Where to?';
+  if (searchInput) searchInput.placeholder = d['Search destinations…'] || 'Search destinations…';
+  if (whenLabel) whenLabel.textContent = d['When?'] || 'When?';
+  if (travelersLabel) travelersLabel.textContent = d['Travelers'] || 'Travelers';
+  if (searchBtn) searchBtn.childNodes[searchBtn.childNodes.length-1].textContent = d['Search'] || 'Search';
+
+  // Section eyebrows & titles
+  const eyebrows = document.querySelectorAll('.eyebrow');
+  eyebrows.forEach(e => {
+    const t = (e._orig || (e._orig = e.textContent)).trim();
+    if (d[t]) e.textContent = d[t];
+  });
+
+  // Section titles
+  document.querySelectorAll('.sec-title, h2').forEach(el => {
+    if (el.closest('#lang-bar')) return;
+    const t = (el._orig || (el._orig = el.textContent)).trim();
+    if (d[t]) el.textContent = d[t];
+  });
+
+  // View all link
+  const va = document.querySelector('.view-all');
+  if (va) va.textContent = d['View all →'] || 'View all →';
+
+  // Cat explore buttons
+  document.querySelectorAll('.cat-explore').forEach(e => {
+    e.textContent = d['Explore Now →'] || 'Explore Now →';
+  });
+
+  // Place cards — names & regions
+  const placeTranslations = {
+    en: {
+      'siwa':            { name: 'Siwa Oasis',       region: 'Matrouh Governorate',  badge: '🌴 Oasis' },
+      'white-desert':    { name: 'White Desert',     region: 'Farafra, New Valley',  badge: '🏜️ Desert' },
+      'wadi-rayan':      { name: 'Wadi El Rayan',    region: 'Fayoum Governorate',   badge: '💧 Lakes' },
+      'dahab':           { name: 'Dahab',             region: 'South Sinai',          badge: '🤿 Diving' },
+      'saint-catherine': { name: 'Saint Catherine',  region: 'South Sinai',          badge: '⛰️ Mountains' },
+      'alexandria':      { name: 'Alexandria',        region: 'Alexandria Governorate', badge: '🌊 Mediterranean' },
+      'luxor':           { name: 'Luxor',             region: 'Luxor Governorate',    badge: '🏛️ Ancient Capital' },
+      'aswan':           { name: 'Aswan',             region: 'Aswan Governorate',    badge: '🌺 Nubian Treasure' },
+    },
+    ar: {
+      'siwa':            { name: 'واحة سيوة',          region: 'محافظة مطروح',          badge: '🌴 واحة' },
+      'white-desert':    { name: 'الصحراء البيضاء',   region: 'الفرافرة، الوادي الجديد', badge: '🏜️ صحراء' },
+      'wadi-rayan':      { name: 'وادي الريان',        region: 'محافظة الفيوم',          badge: '💧 بحيرات' },
+      'dahab':           { name: 'دهب',                region: 'جنوب سيناء',             badge: '🤿 غوص' },
+      'saint-catherine': { name: 'سانت كاترين',        region: 'جنوب سيناء',             badge: '⛰️ جبال' },
+      'alexandria':      { name: 'الإسكندرية',         region: 'محافظة الإسكندرية',      badge: '🌊 متوسطية' },
+      'luxor':           { name: 'الأقصر',              region: 'محافظة الأقصر',           badge: '🏛️ عاصمة قديمة' },
+      'aswan':           { name: 'أسوان',               region: 'محافظة أسوان',            badge: '🌺 كنز نوبي' },
+    },
+    de: {
+      'siwa':            { name: 'Siwa-Oase',         region: 'Gouvernement Matruh',    badge: '🌴 Oase' },
+      'white-desert':    { name: 'Weiße Wüste',       region: 'Farafra, Neues Tal',     badge: '🏜️ Wüste' },
+      'wadi-rayan':      { name: 'Wadi El Rayan',     region: 'Gouvernement Fayoum',    badge: '💧 Seen' },
+      'dahab':           { name: 'Dahab',              region: 'Süd-Sinai',              badge: '🤿 Tauchen' },
+      'saint-catherine': { name: 'St. Katharina',     region: 'Süd-Sinai',              badge: '⛰️ Berge' },
+      'alexandria':      { name: 'Alexandria',         region: 'Gouvernement Alexandria', badge: '🌊 Mittelmeer' },
+      'luxor':           { name: 'Luxor',              region: 'Gouvernement Luxor',     badge: '🏛️ Alte Hauptstadt' },
+      'aswan':           { name: 'Assuan',             region: 'Gouvernement Assuan',    badge: '🌺 Nubischer Schatz' },
+    },
+    fr: {
+      'siwa':            { name: 'Oasis de Siwa',     region: 'Gouvernorat de Matruh',  badge: '🌴 Oasis' },
+      'white-desert':    { name: 'Désert Blanc',      region: 'Farafra, Nouvelle Vallée', badge: '🏜️ Désert' },
+      'wadi-rayan':      { name: 'Wadi El Rayan',     region: 'Gouvernorat de Fayoum',  badge: '💧 Lacs' },
+      'dahab':           { name: 'Dahab',              region: 'Sinaï du Sud',           badge: '🤿 Plongée' },
+      'saint-catherine': { name: 'Sainte-Catherine',  region: 'Sinaï du Sud',           badge: '⛰️ Montagnes' },
+      'alexandria':      { name: 'Alexandrie',         region: 'Gouvernorat d\'Alexandrie', badge: '🌊 Méditerranée' },
+      'luxor':           { name: 'Louxor',             region: 'Gouvernorat de Louxor',  badge: '🏛️ Ancienne Capitale' },
+      'aswan':           { name: 'Assouan',            region: 'Gouvernorat d\'Assouan', badge: '🌺 Trésor Nubien' },
+    },
+    tr: {
+      'siwa':            { name: 'Siwa Vahasısı',     region: 'Matruh Valiliği',        badge: '🌴 Vaha' },
+      'white-desert':    { name: 'Beyaz Çöl',         region: 'Farafra, Yeni Vadi',     badge: '🏜️ Çöl' },
+      'wadi-rayan':      { name: 'Wadi El Rayan',     region: 'Fayum Valiliği',         badge: '💧 Göller' },
+      'dahab':           { name: 'Dahab',              region: 'Güney Sina',             badge: '🤿 Dalış' },
+      'saint-catherine': { name: 'Azize Katerina',    region: 'Güney Sina',             badge: '⛰️ Dağlar' },
+      'alexandria':      { name: 'İskenderiye',        region: 'İskenderiye Valiliği',   badge: '🌊 Akdeniz' },
+      'luxor':           { name: 'Luksor',             region: 'Luksor Valiliği',        badge: '🏛️ Antik Başkent' },
+      'aswan':           { name: 'Asvan',              region: 'Asvan Valiliği',         badge: '🌺 Nübyalı Hazine' },
+    },
+    es: {
+      'siwa':            { name: 'Oasis de Siwa',     region: 'Gobernación de Matruh',  badge: '🌴 Oasis' },
+      'white-desert':    { name: 'Desierto Blanco',   region: 'Farafra, Valle Nuevo',   badge: '🏜️ Desierto' },
+      'wadi-rayan':      { name: 'Wadi El Rayan',     region: 'Gobernación de Fayum',   badge: '💧 Lagos' },
+      'dahab':           { name: 'Dahab',              region: 'Sinaí del Sur',          badge: '🤿 Buceo' },
+      'saint-catherine': { name: 'Santa Catalina',    region: 'Sinaí del Sur',          badge: '⛰️ Montañas' },
+      'alexandria':      { name: 'Alejandría',         region: 'Gobernación de Alejandría', badge: '🌊 Mediterráneo' },
+      'luxor':           { name: 'Luxor',              region: 'Gobernación de Luxor',   badge: '🏛️ Capital Antigua' },
+      'aswan':           { name: 'Asuán',              region: 'Gobernación de Asuán',   badge: '🌺 Tesoro Nubio' },
+    },
+  };
+
+  const ptLang = placeTranslations[lang] || placeTranslations['en'];
+  document.querySelectorAll('.place-card[data-place]').forEach(card => {
+    const key = card.dataset.place;
+    const t = ptLang[key];
+    if (!t) return;
+    const h3 = card.querySelector('.place-info h3');
+    const p  = card.querySelector('.place-info p');
+    const badge = card.querySelector('.place-badge');
+    if (h3) h3.textContent = t.name;
+    if (p) {
+      // keep the svg pin icon, just update the text node
+      const svgEl = p.querySelector('svg');
+      p.innerHTML = '';
+      if (svgEl) p.appendChild(svgEl);
+      p.appendChild(document.createTextNode(t.region));
+    }
+    if (badge) badge.textContent = t.badge;
+  });
+
+  // Newsletter section
+  const nlEmail = document.getElementById('nlEmail');
+  if (nlEmail) nlEmail.placeholder = 'your@email.com';
+  document.querySelectorAll('.nl-section p:not(.nl-privacy)').forEach(p => {
+    const t = (p._orig || (p._orig = p.textContent)).trim();
+    if (d[t]) p.textContent = d[t];
+  });
+  const nlPrivacy = document.querySelector('.nl-privacy');
+  if (nlPrivacy) nlPrivacy.textContent = d['No spam, ever. Unsubscribe anytime.'] || 'No spam, ever. Unsubscribe anytime.';
+  const subBtn = document.querySelector('.nl-form button');
+  if (subBtn) subBtn.textContent = d['Subscribe ✦'] || 'Subscribe ✦';
+
+  // nl h2
+  const nlH2 = document.querySelector('.nl-section h2');
+  if (nlH2) nlH2.innerHTML = `${d['Let Egypt surprise you,'] || 'Let Egypt surprise you,'}<br><em>${d['every week'] || 'every week'}</em>`;
+  const nlDesc = document.querySelector('.nl-section .nl-inner > p');
+  if (nlDesc) nlDesc.textContent = d['Hidden places, travel tips, and exclusive offers — straight to your inbox.'] || nlDesc.textContent;
+
+  // Footer brand
+  const fbP = document.querySelector('.footer-brand > p');
+  if (fbP) fbP.textContent = d["Your gateway to Egypt's best-kept secrets and most authentic adventures."] || fbP.textContent;
+  const fbBottom = document.querySelector('.footer-bottom span:last-child');
+  if (fbBottom) fbBottom.textContent = d['Made with ❤️ in Egypt 🇪🇬'] || fbBottom.textContent;
+
+  // Footer nav headings
+  const footerH5s = document.querySelectorAll('.footer-col h5');
+  const h5keys = ['Explore','Top Places','Travel Guide','Support'];
+  footerH5s.forEach((h,i) => { if(d[h5keys[i]]) h.textContent = d[h5keys[i]]; });
+
+  // Footer nav links (simple ones)
+  document.querySelectorAll('.footer-col ul li a').forEach(a => {
+    const t = (a._orig || (a._orig = a.textContent)).trim();
+    if (d[t]) a.textContent = d[t];
+  });
+
+  // Float card
+  const fc = document.querySelector('.float-txt strong');
+  if (fc) fc.textContent = d['10,000+ Happy Travelers'] || '10,000+ Happy Travelers';
+
+  // Chat welcome message
+  const firstBubble = document.querySelector('#chat-messages .msg.bot .bubble');
+  if (firstBubble) firstBubble.innerHTML = d['chat-welcome'] || firstBubble.innerHTML;
+
+  // Chat input placeholder
+  const chatInput = document.getElementById('chat-input');
+  if (chatInput) chatInput.placeholder = d['chat-placeholder'] || 'Ask about any place in Egypt…';
+
+  // Chat quick buttons
+  const suggBtns = document.querySelectorAll('#chat-suggestions button');
+  if (suggBtns[0] && d['q1']) suggBtns[0].textContent = d['q1'];
+  if (suggBtns[1] && d['q2']) suggBtns[1].textContent = d['q2'];
+  if (suggBtns[2] && d['q3']) suggBtns[2].textContent = d['q3'];
+
+  // Chat quick send actions — retarget for current language
+  if (suggBtns[0]) suggBtns[0].onclick = () => { document.getElementById('chat-suggestions').style.display='none'; processMsg(d['q1'].replace(/^[^\w\u0600-\u06FF]+/,'')); };
+  if (suggBtns[1]) suggBtns[1].onclick = () => { document.getElementById('chat-suggestions').style.display='none'; processMsg(d['q2'].replace(/^[^\w\u0600-\u06FF]+/,'')); };
+  if (suggBtns[2]) suggBtns[2].onclick = () => { document.getElementById('chat-suggestions').style.display='none'; processMsg(d['q3'].replace(/^[^\w\u0600-\u06FF]+/,'')); };
+
+  // Chat status
+  const chatStatus = document.querySelector('.chat-hdr-status');
+  if (chatStatus) chatStatus.innerHTML = `<span class="online-dot"></span>${d['Online · AI-powered'] || 'Online · AI-powered'}`;
+
+  // Update Daleel system prompt dynamically (patch processMsg's system)
+  window.__currentChatSystem = d['chat-system'];
+
+  // Nav links
+  const navLinks = document.querySelectorAll('.nav-links a');
+  navLinks.forEach(a => {
+    const t = (a._orig || (a._orig = a.textContent)).trim();
+    if (d[t]) a.textContent = d[t];
+  });
+}
+
+// Patch processMsg to use current system prompt
+const _origProcessMsg = processMsg;
+window.processMsg = async function(text) {
+  const sys = window.__currentChatSystem;
+  if (!sys) return _origProcessMsg(text);
+  // rebuild with current lang system
+  chatBusy=true;
+  document.getElementById('chat-send').disabled=true;
+  addMsg('user',escHtml(text));
+  chatHist.push({role:'user',content:text});
+  showTyping();
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:600,system:sys,messages:chatHist})});
+    const data=await res.json();
+    hideTyping();
+    if(data.error)throw new Error(data.error.message);
+    const reply=data?.content?.[0]?.text||'';
+    if(!reply)throw new Error('empty');
+    addMsg('bot',reply.trim().replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>'));
+    chatHist.push({role:'assistant',content:reply});
+  }catch(e){hideTyping();addMsg('bot',LANG_DICT[currentLang]?.['chat-welcome']?.replace(/<[^>]+>/g,'')||'Sorry, temporary issue 😔 Try again!')}
+  chatBusy=false;document.getElementById('chat-send').disabled=false;
+  document.getElementById('chat-input').focus();
+};
+
+function switchLang(lang) {
+  chatHist = []; // reset chat history on lang switch
+  applyLang(lang);
+}
+
+// Initialize with English
+window.__currentChatSystem = LANG_DICT.en['chat-system'];
+</script>
+<!-- ===== END LANGUAGE SWITCHER ===== -->
 </body>
 </html>
