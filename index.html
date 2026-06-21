@@ -241,6 +241,26 @@ section.pad{padding:88px 56px}
 .planner-card.active .planner-card-check{background:var(--teal);border-color:var(--teal)}
 .planner-card-check svg{width:11px;height:11px;stroke:#fff;opacity:0;transition:opacity .2s}
 .planner-card.active .planner-card-check svg{opacity:1}
+.planner-pace-row{display:flex;align-items:center;gap:14px;margin-top:18px}
+.planner-pace-lbl{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;flex-shrink:0}
+.planner-pace-toggle{display:flex;gap:6px;background:var(--teal-lt);border-radius:30px;padding:4px;flex:1}
+.planner-pace-btn{flex:1;border:none;background:transparent;padding:7px 10px;font-size:11.5px;font-weight:600;color:var(--teal);border-radius:30px;cursor:pointer;font-family:inherit;transition:background .25s var(--ease-out),color .25s;white-space:nowrap}
+.planner-pace-btn.active{background:var(--teal);color:#fff}
+.planner-empty-hint{margin-top:26px;padding:16px 18px;border:1.5px dashed var(--border-md);border-radius:var(--r-lg);font-size:12.5px;color:var(--muted-lt);text-align:center}
+.planner-itinerary{display:flex;flex-direction:column;gap:10px;margin-top:22px;max-height:380px;overflow-y:auto;padding-right:4px}
+.planner-itinerary::-webkit-scrollbar{width:4px}
+.planner-itinerary::-webkit-scrollbar-thumb{background:var(--teal-lt);border-radius:4px}
+.planner-day{background:var(--gold-lt);border-radius:var(--r-md);padding:14px 16px;border:1px solid rgba(187,104,48,.14)}
+.planner-day-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+.planner-day-hdr .day-lbl{font-size:11px;font-weight:700;color:var(--gold);text-transform:uppercase;letter-spacing:.06em}
+.planner-day-hdr .day-place{font-size:14px;font-weight:600;color:var(--ink);font-family:'Cormorant Garamond',serif}
+.planner-day-note{font-size:11.5px;color:var(--muted);line-height:1.5}
+.planner-day-remove{background:none;border:none;cursor:pointer;color:var(--muted-lt);font-size:15px;line-height:1;padding:2px 4px;transition:color .2s,transform .2s}
+.planner-day-remove:hover{color:var(--gold);transform:scale(1.15)}
+.planner-card-stepper{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.planner-step-btn{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border-md);background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;font-weight:700;color:var(--teal);transition:background .2s,border-color .2s;line-height:1;padding:0}
+.planner-step-btn:hover{background:var(--teal-lt);border-color:var(--teal)}
+.planner-step-count{font-size:13px;font-weight:700;color:var(--ink);min-width:14px;text-align:center}
 .planner-summary{margin-top:22px;background:var(--ink);border-radius:var(--r-lg);padding:24px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 .planner-summary-text{font-size:13px;color:rgba(255,255,255,.55);font-weight:300}
 .planner-summary-text strong{display:block;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:500;color:#fff;margin-bottom:4px;font-style:normal}
@@ -696,25 +716,39 @@ footer{background:var(--ink);padding:66px 56px 28px}
   <div class="planner-inner">
     <div class="planner-left">
       <div class="eyebrow reveal">Plan Your Trip</div>
-      <h2 class="sec-title reveal">Pick a place, <em style="font-style:italic">pick your budget</em></h2>
-      <p class="reveal">Every destination on Daleel comes with a realistic cost range so you can plan with confidence — whether you're backpacking on a shoestring or traveling in comfort.</p>
+      <h2 class="sec-title reveal">Build your <em style="font-style:italic">own itinerary</em></h2>
+      <p class="reveal">Tap as many destinations as you like, set your budget and trip length, and Daleel lays out a day-by-day plan with a running cost estimate.</p>
 
       <div class="planner-budget-toggle reveal">
         <button class="planner-budget-btn active" data-budget="eco" onclick="setPlannerBudget('eco')">💰 Economy</button>
         <button class="planner-budget-btn" data-budget="mid" onclick="setPlannerBudget('mid')">✦ Mid-Range</button>
       </div>
 
-      <div class="planner-stat-row reveal">
-        <div class="planner-stat"><span class="num" id="plannerDur">3 days</span><span class="lbl">Suggested Duration</span></div>
-        <div class="planner-stat"><span class="num" id="plannerCost">$80–120</span><span class="lbl">Estimated Cost</span></div>
+      <div class="planner-pace-row reveal">
+        <span class="planner-pace-lbl">Pace</span>
+        <div class="planner-pace-toggle">
+          <button class="planner-pace-btn" data-pace="relaxed" onclick="setPlannerPace('relaxed')">Relaxed</button>
+          <button class="planner-pace-btn active" data-pace="standard" onclick="setPlannerPace('standard')">Standard</button>
+          <button class="planner-pace-btn" data-pace="fast" onclick="setPlannerPace('fast')">Fast-paced</button>
+        </div>
       </div>
 
-      <div class="planner-summary reveal">
+      <div class="planner-stat-row reveal">
+        <div class="planner-stat"><span class="num" id="plannerDur">0 days</span><span class="lbl">Trip Length</span></div>
+        <div class="planner-stat"><span class="num" id="plannerCost">$0</span><span class="lbl">Estimated Cost</span></div>
+        <div class="planner-stat"><span class="num" id="plannerStops">0</span><span class="lbl">Stops Selected</span></div>
+      </div>
+
+      <div class="planner-empty-hint reveal" id="plannerEmptyHint">Select destinations on the right to start building your trip →</div>
+
+      <div class="planner-itinerary reveal" id="plannerItinerary"></div>
+
+      <div class="planner-summary reveal" id="plannerSummary" style="display:none">
         <div class="planner-summary-text">
-          <strong id="plannerSummaryPlace">Siwa Oasis</strong>
-          Tap any destination to update your estimate
+          <strong id="plannerSummaryPlace">Your trip</strong>
+          <span id="plannerSummarySub">Tap “Plan a Visit” on any place to add it here</span>
         </div>
-        <button class="btn-planner-cta" onclick="openPlaceModal(currentPlannerPlace)">View Details →</button>
+        <button class="btn-planner-cta" onclick="showToast('✦ Itinerary ready — screenshot it or keep tweaking!')">Save Itinerary →</button>
       </div>
     </div>
 
@@ -868,19 +902,22 @@ const CATEGORIES={
   oases:{name:"Oases & Nature",badge:"🌴 Desert Islands",img:"https://images.unsplash.com/photo-1565967511849-76a60a516170?w=900&q=85",desc:"Egypt's oases are islands of green life amid the vastness of the Sahara. Fed by ancient underground aquifers, they sustain unique cultures found nowhere else.",places:[{icon:"🌴",name:"Siwa Oasis",region:"Matrouh",note:"Remote Amazigh culture and salt lakes"},{icon:"🍄",name:"Bahariya Oasis",region:"Giza",note:"Gateway to the Black and White Deserts"},{icon:"💦",name:"Wadi El Rayan",region:"Fayoum",note:"Lakes, waterfalls, and migratory birds"},{icon:"🌿",name:"Kharga Oasis",region:"New Valley",note:"Ancient temples and vast palm forests"}]}
 };
 
-// Trip Planner — duration & budget data
+// Trip Planner — per-place baseline duration & budget data
 const PLANNER_BUDGET={
-  siwa:{dur:"3 days",eco:"80–120",mid:"150–250"},
-  "white-desert":{dur:"2 days",eco:"70–120",mid:"150–250"},
-  "wadi-rayan":{dur:"1–2 days",eco:"30–60",mid:"70–120"},
-  dahab:{dur:"4 days",eco:"120–180",mid:"250–450"},
-  "saint-catherine":{dur:"2 days",eco:"50–90",mid:"100–180"},
-  alexandria:{dur:"3 days",eco:"70–120",mid:"150–250"},
-  luxor:{dur:"3 days",eco:"120–180",mid:"250–400"},
-  aswan:{dur:"3 days",eco:"120–200",mid:"250–450"}
+  siwa:{dur:3,eco:90,mid:180,note:"Salt lakes, hot springs, and the Great Sand Sea on Siwa's doorstep."},
+  "white-desert":{dur:2,eco:95,mid:190,note:"Chalk-rock camping under a sky full of stars."},
+  "wadi-rayan":{dur:1,eco:40,mid:85,note:"Waterfalls and lakes — an easy day trip from Cairo."},
+  dahab:{dur:4,eco:140,mid:330,note:"Diving, lagoon chilling, and Sinai mountain hikes."},
+  "saint-catherine":{dur:2,eco:65,mid:130,note:"Sunrise hike up Mount Sinai and the ancient monastery."},
+  alexandria:{dur:3,eco:90,mid:190,note:"Mediterranean coastline and Greco-Roman history."},
+  luxor:{dur:3,eco:140,mid:310,note:"Valley of the Kings and the temples of ancient Thebes."},
+  aswan:{dur:3,eco:150,mid:330,note:"Nubian villages, Philae, and Abu Simbel."}
 };
 let currentPlannerBudget='eco';
-let currentPlannerPlace='siwa';
+let currentPlannerPace='standard';
+const PACE_MULT={relaxed:1.4,standard:1,fast:0.7};
+// tripCart: { placeKey: qty } — qty lets someone stack e.g. two desert stops
+let tripCart={};
 
 function renderPlannerList(){
   const list=document.getElementById('plannerList');
@@ -889,39 +926,105 @@ function renderPlannerList(){
     const place=PLACES[key];
     const budget=PLANNER_BUDGET[key];
     const price=budget[currentPlannerBudget];
-    const active=key===currentPlannerPlace?'active':'';
-    return `<div class="planner-card ${active}" data-place="${key}" onclick="selectPlannerPlace('${key}')">
+    const qty=tripCart[key]||0;
+    const active=qty>0?'active':'';
+    return `<div class="planner-card ${active}" data-place="${key}">
       <div class="planner-card-img"><img src="${place.img}" alt="${place.name}" loading="lazy"/></div>
-      <div class="planner-card-body">
+      <div class="planner-card-body" onclick="openPlaceModal('${key}')" style="cursor:pointer">
         <h4>${place.name}</h4>
-        <div class="planner-card-dur"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>${budget.dur}</div>
+        <div class="planner-card-dur"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>~${budget.dur} day${budget.dur>1?'s':''}</div>
       </div>
-      <div class="planner-card-price"><div class="amt">$${price}</div><div class="per">total</div></div>
-      <div class="planner-card-check"><svg viewBox="0 0 24 24" fill="none" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+      <div class="planner-card-price"><div class="amt">$${price}</div><div class="per">per stop</div></div>
+      <div class="planner-card-stepper">
+        <button class="planner-step-btn" onclick="event.stopPropagation();adjustPlannerQty('${key}',-1)" aria-label="Remove a stop">−</button>
+        <span class="planner-step-count">${qty}</span>
+        <button class="planner-step-btn" onclick="event.stopPropagation();adjustPlannerQty('${key}',1)" aria-label="Add a stop">+</button>
+      </div>
     </div>`;
   }).join('');
 }
 
-function selectPlannerPlace(key){
-  currentPlannerPlace=key;
-  updatePlannerSummary();
+function adjustPlannerQty(key,delta){
+  const next=(tripCart[key]||0)+delta;
+  if(next<=0){delete tripCart[key]}
+  else{tripCart[key]=Math.min(next,4)}
   renderPlannerList();
+  updatePlannerSummary();
 }
 
 function setPlannerBudget(tier){
   currentPlannerBudget=tier;
   document.querySelectorAll('.planner-budget-btn').forEach(b=>b.classList.toggle('active',b.dataset.budget===tier));
-  updatePlannerSummary();
   renderPlannerList();
+  updatePlannerSummary();
+}
+
+function setPlannerPace(pace){
+  currentPlannerPace=pace;
+  document.querySelectorAll('.planner-pace-btn').forEach(b=>b.classList.toggle('active',b.dataset.pace===pace));
+  updatePlannerSummary();
 }
 
 function updatePlannerSummary(){
-  const budget=PLANNER_BUDGET[currentPlannerPlace];
-  const place=PLACES[currentPlannerPlace];
-  if(!budget||!place)return;
-  document.getElementById('plannerDur').textContent=budget.dur;
-  document.getElementById('plannerCost').textContent='$'+budget[currentPlannerBudget];
-  document.getElementById('plannerSummaryPlace').textContent=place.name;
+  const keys=Object.keys(tripCart);
+  const stopCount=keys.reduce((sum,k)=>sum+tripCart[k],0);
+  const emptyHint=document.getElementById('plannerEmptyHint');
+  const itineraryEl=document.getElementById('plannerItinerary');
+  const summaryEl=document.getElementById('plannerSummary');
+
+  document.getElementById('plannerStops').textContent=stopCount;
+
+  if(stopCount===0){
+    emptyHint.style.display='block';
+    itineraryEl.style.display='none';
+    itineraryEl.innerHTML='';
+    summaryEl.style.display='none';
+    document.getElementById('plannerDur').textContent='0 days';
+    document.getElementById('plannerCost').textContent='$0';
+    return;
+  }
+
+  emptyHint.style.display='none';
+  itineraryEl.style.display='flex';
+  summaryEl.style.display='flex';
+
+  let totalCost=0,totalDays=0,dayCounter=1;
+  let rows=[];
+  keys.forEach(key=>{
+    const place=PLACES[key];
+    const budget=PLANNER_BUDGET[key];
+    const qty=tripCart[key];
+    const days=Math.max(1,Math.round(budget.dur*PACE_MULT[currentPlannerPace]));
+    for(let i=0;i<qty;i++){
+      totalCost+=budget[currentPlannerBudget];
+      totalDays+=days;
+      const dayLabel=days>1?`Days ${dayCounter}–${dayCounter+days-1}`:`Day ${dayCounter}`;
+      rows.push(`<div class="planner-day">
+        <div class="planner-day-hdr">
+          <div><span class="day-lbl">${dayLabel}</span> &nbsp; <span class="day-place">${place.name}</span></div>
+          <button class="planner-day-remove" onclick="adjustPlannerQty('${key}',-1)" aria-label="Remove ${place.name}">✕</button>
+        </div>
+        <div class="planner-day-note">${budget.note}</div>
+      </div>`);
+      dayCounter+=days;
+    }
+  });
+
+  itineraryEl.innerHTML=rows.join('');
+  document.getElementById('plannerDur').textContent=totalDays+' day'+(totalDays>1?'s':'');
+  document.getElementById('plannerCost').textContent='$'+totalCost.toLocaleString();
+  document.getElementById('plannerSummaryPlace').textContent=stopCount+' stop'+(stopCount>1?'s':'')+' planned';
+  document.getElementById('plannerSummarySub').textContent=`${currentPlannerBudget==='eco'?'Economy':'Mid-range'} budget · ${currentPlannerPace} pace`;
+}
+
+// "Plan a Visit" from a place modal adds it to the trip cart instead of just scrolling
+function addPlaceToTrip(key){
+  tripCart[key]=Math.min((tripCart[key]||0)+1,4);
+  renderPlannerList();
+  updatePlannerSummary();
+  closeModal('placeModal');
+  document.getElementById('planner-sec').scrollIntoView({behavior:'smooth'});
+  showToast(`✦ Added ${PLACES[key].name} to your trip`);
 }
 
 renderPlannerList();
@@ -998,7 +1101,7 @@ function openPlaceModal(id){
     <div class="highlights-grid">${d.highlights.map(h=>`<div class="hl-card"><div class="hl-icon">${h.icon}</div><div class="hl-text"><strong>${h.title}</strong><span>${h.desc}</span></div></div>`).join('')}</div>
     <div class="tips-section"><h4>💡 Traveler Tips</h4>${d.tips.map(t=>`<div class="tip-row"><div class="tip-dot"></div><span>${t}</span></div>`).join('')}</div>
     <div class="modal-actions">
-      <button class="btn-modal-p" onclick="showToast('✦ Opening trip planner…');closeModal('placeModal');document.getElementById('planner-sec').scrollIntoView({behavior:'smooth'})">Plan a Visit →</button>
+      <button class="btn-modal-p" onclick="${PLANNER_BUDGET[id]?`addPlaceToTrip('${id}')`:`showToast('✦ Opening trip planner…');closeModal('placeModal');document.getElementById('planner-sec').scrollIntoView({behavior:'smooth'})`}">Plan a Visit →</button>
       <button class="btn-modal-g" onclick="closeModal('placeModal');showToast('❤️ Saved to wishlist')">Save to Wishlist ♡</button>
     </div>`;
   document.getElementById('placeModal').classList.add('open');
